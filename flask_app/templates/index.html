@@ -20,29 +20,20 @@
     <body>
         <img id="login_background">
         <div class="container d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
-            <form class="content bg-transparent" action="/" method="post">
-                <div class="form-group p-2">
-                    <div class="d-flex justify-content-between mb-2">
-                        <h2 class=""><i class="fa-solid fa-user"></i> Sign In</h2>
-                        <!-- <img id="logo" class="width-50"
-                            src="{{ url_for('static', filename='/img/Social_Fitness-logo-2.png') }}"> -->
-                    </div>
-                    <div class="d-flex flex-column justify-content-between my-2">
-                        <a href="/registration"></a>
-                        <input type='submit' value='Login'
-                            class="btn d-flex align-items-center text-decoration-none btn-primary float-end">
-                    </div>
-                    <div>
-                        <a href="/" class=""></a>
-                        <input type='submit' value='Register'
-                            class="btn d-flex align-items-center text-decoration-none btn-primary float-end mx-2">
-                    </div>
+            <div class="form-group d-flex flex-column align-items-center">
+                <img id="logo" class="width-10"
+                    src="{{ url_for('static', filename='/img/Social_Fitness-logo-2.png') }}">
+                <div>
+                    <h2 class=""><i class="fa-solid fa-user"></i> Sign In</h2>
                 </div>
-            </form>
-        </div>
-        <div>
-            <!-- <img src="{{ url_for('static', filename='/img/man-runs-across-snow.jpg') }}" class="img-fluid bg-img"
-                alt="icon"> -->
+                <div>
+                    <a href="/registration"
+                        class="btn d-flex align-items-center text-decoration-none btn-dark my-1">Register</a>
+                </div>
+                <div>
+                    <a href="/login" class="btn d-flex align-items-center text-decoration-none btn-dark my-1">Login</a>
+                </div>
+            </div>
         </div>
     </body>
 

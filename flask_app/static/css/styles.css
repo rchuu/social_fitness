@@ -8,3 +8,10 @@
     width: 100vw;
     background-size: cover;
 }
+
+#logo {
+    max-width: 350px;
+    width: 100%;
+    /* object-fit:contain; */
+    object-fit: scale-down;
+}

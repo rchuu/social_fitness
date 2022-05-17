@@ -11,6 +11,16 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+
+@app.route('/registration')
+def registration():
+    return render_template("registration.html")
+
+
 @app.route('/register', methods=['POST'])
 def register():
     if not User.validate_register(request.form):
