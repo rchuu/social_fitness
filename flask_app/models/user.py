@@ -61,8 +61,8 @@ class User:
     @staticmethod
     def validate_register(user):
         is_valid = True
-        query = ' SELECT * FROM workouts where name = %(name)s; '
-        results = connectToMySQL(Workouts.db).query_db(query, user)
+        query = ' SELECT * FROM users WHERE email = %(email)s;'
+        results = connectToMySQL(User.db).query_db(query, user)
         if len(results) >= 1:  # to check if email has been taken
             flash("Sorry, email has been taken", "register")
             is_valid = False
