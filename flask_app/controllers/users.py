@@ -48,6 +48,11 @@ def dashboard():
     return render_template('dashboard.html', user=User.get_from_id(data))
 
 
+@app.route('/profile')
+def profile():
+    pass
+
+
 @app.route('/logout')
 def logout():
     session.clear()
