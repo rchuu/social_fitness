@@ -16,6 +16,20 @@ def login():
     return render_template("login.html")
 
 
+@app.route('/log_in', methods=['post'])
+def login_():
+    user = User.get_from_email(request.form)
+    if not user:
+        flash("INVALID EMAIL address", "login")
+        return redirect('/login')
+    if not bcrypt.check_password_hash(user.password, request.form['password']):
+        print(user.password)
+        flash("INVALID PASSWORD!!", "login")
+        return redirect('/login')
+    session['user_id'] = user.id
+    return redirect('/dashboard')
+
+
 @app.route('/registration')
 def registration():
     return render_template("registration.html")
@@ -24,7 +38,7 @@ def registration():
 @app.route('/register', methods=['POST'])
 def register():
     if not User.validate_register(request.form):
-        return redirect('/')
+        return redirect('/registration')
 
     data = {
         "first_name": request.form['first_name'],

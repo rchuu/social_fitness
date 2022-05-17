@@ -20,7 +20,7 @@
     <body>
         <img id="login_background">
         <div class="container d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
-            <form class="content bg-transparent" action="/login" method="POST">
+            <form class="content bg-transparent" action="/log_in" method="POST">
                 <div class="form-group p-2">
                     <img id="logo" src="{{ url_for('static', filename='/img/Social_Fitness-logo-2.png') }}">
                     <div class="d-flex justify-content-between mb-2">
@@ -40,7 +40,7 @@
                     <input type="text" class="form-control mb-2" name="email" placeholder="Email Address">
                     <input type="password" class="form-control mb-2" name="password" placeholder="Password">
                     <p>Don't have an account? <a href="/registration">Create one here!</a></p>
-                    <input type='submit' value='Login' class="btn float-end btn-dark">
+                    <input type='submit' class="btn float-end btn-dark">
                 </div>
             </form>
         </div>

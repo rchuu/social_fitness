@@ -67,7 +67,7 @@ class User:
             flash("Sorry, email has been taken", "register")
             is_valid = False
         if not EMAIL_REGEX.match(user['email']):
-            flash("Invalid Email formet", "register")
+            flash("Invalid Email format", "register")
             is_valid = False
         if len(user['first_name']) < 2:
             flash("First name needs at least 2 characters", "register")
