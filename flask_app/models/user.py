@@ -2,6 +2,8 @@ from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 
 import re
+
+from flask_app.models.workout import Workouts
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
@@ -48,11 +50,19 @@ class User:
             return False
         return cls(results[0])
 
+    @classmethod
+    def users_and_workouts(cls,data):
+        query = 'select * from workouts join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+        results = connectToMySQL(cls.db).query_db(query,data)
+        if len(results) < 1:
+            return False
+        return cls(cls(results[0]))
+
     @staticmethod
     def validate_register(user):
         is_valid = True
-        query = ' SELECT * FROM users WHERE email = %(email)s;'
-        results = connectToMySQL(User.db).query_db(query, user)
+        query = ' SELECT * FROM workouts where name = %(name)s; '
+        results = connectToMySQL(Workouts.db).query_db(query, user)
         if len(results) >= 1:  # to check if email has been taken
             flash("Sorry, email has been taken", "register")
             is_valid = False
