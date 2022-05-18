@@ -15,17 +15,17 @@ def registration():
 def register():
     if not User.validate_register(request.form):
         return redirect('/registration')
-    password = request.form['password']
+    password = bcrypt.generate_password_hash(request.form['password'])
     data = {
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": bcrypt.generate_password_hash(password)
+        "password": password
     }
     id = User.save(data)
     session['user_id'] = id
-
     return redirect('/dashboard')
+
 
 @app.route('/')
 def index():
@@ -40,12 +40,8 @@ def login():
 @app.route('/log_in', methods=['post'])
 def login_():
     user = User.get_from_email(request.form)
-
-
-    
     print(user.password)
     if not user:
-
         flash("INVALID EMAIL address", "login")
         return redirect('/login')
     if not bcrypt.check_password_hash( user.password, request.form['password']):
@@ -55,8 +51,6 @@ def login_():
     print(user.password)
     session['user_id'] = user.id
     return redirect('/dashboard')
-
-
 
 
 @app.route('/dashboard')

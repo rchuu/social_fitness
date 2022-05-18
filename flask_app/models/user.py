@@ -6,7 +6,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
 class User:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -19,13 +19,13 @@ class User:
 
     @classmethod
     def save(cls, data):
-        query = '''INSERT INTO users (first_name, last_name, email, password)
+        query = '''INSERT INTO user (first_name, last_name, email, password)
         VALUES (%(first_name)s,%(last_name)s,%(email)s,%(password)s);'''
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def get_all(cls):
-        query = 'SELECT * FROM users'
+        query = 'SELECT * FROM user'
         results = connectToMySQL(cls.db).query_db(query)
         users = []
         for row in results:
@@ -34,7 +34,7 @@ class User:
 
     @classmethod
     def get_from_id(cls, data):
-        query = 'SELECT * FROM users where id = %(id)s;'
+        query = 'SELECT * FROM user where id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
@@ -42,25 +42,25 @@ class User:
 
     @classmethod
     def get_from_email(cls, data):
-        query = 'SELECT * FROM users WHERE email = %(email)s;'
+        query = 'SELECT * FROM user WHERE email = %(email)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         print(results)
         if len(results) < 1:
             return False
         return cls(results[0])
 
-    @classmethod
-    def users_and_workouts(cls,data):
-        query = 'select * from workouts join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
-        results = connectToMySQL(cls.db).query_db(query,data)
-        if len(results) < 1:
-            return False
-        return cls(cls(results[0]))
+    # @classmethod
+    # def users_and_workouts(cls,data):
+    #     query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+    #     results = connectToMySQL(cls.db).query_db(query,data)
+    #     if len(results) < 1:
+    #         return False
+    #     return cls(cls(results[0]))
 
     @staticmethod
     def validate_register(user):
         is_valid = True
-        query = ' SELECT * FROM users WHERE email = %(email)s;'
+        query = ' SELECT * FROM user WHERE email = %(email)s;'
         results = connectToMySQL(User.db).query_db(query, user)
         if len(results) >= 1:  # to check if email has been taken
             flash("Sorry, email has been taken", "register")
