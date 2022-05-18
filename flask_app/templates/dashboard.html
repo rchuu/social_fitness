@@ -18,9 +18,9 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
     </head>
-    <script src="scripts.js"></script>
 
-    <body>
+    <body id="background-img">
+        <script src="scripts.js"></script>
         <nav class="navbar bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" id="logo-img" href="#"></a>
@@ -53,9 +53,32 @@
                 </div>
             </div>
         </nav>
-        <main>
-            hello
-        </main>
+
+        <div
+            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
+            <table class="table table-hover table-light table-responsive form-control-md">
+                <thead>
+                    <tr>
+                        <th>Friend</th>
+                        <th>Workout</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href="#">View</a>
+                            <a href="#">Edit</a>
+                            <a href="#">Remove</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 
 </html>

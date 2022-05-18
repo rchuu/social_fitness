@@ -13,6 +13,17 @@ body {
     background-size: cover;
 }
 
+#background-img {
+    background-image: url("../img/young-woman-standing-in-yoga-pose.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
 #logo {
     max-width: 350px;
     width: 100%;
