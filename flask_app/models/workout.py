@@ -59,12 +59,17 @@ class Workouts:
         return results
 
     @classmethod
-    def friend_workouts(cls, data):
-        query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
-        results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+# <<<<<<< updates
+#     def friend_workouts(cls, data):
+#         query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
+# =======
+#     def user_workouts(cls, data):
+#         query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+# >>>>>>> main
+#         results = connectToMySQL(cls.db).query_db(query, data)
+#         if len(results) < 1:
+#             return False
+#         return cls(results[0])
 
     @staticmethod
     def validate_workout(workout):
