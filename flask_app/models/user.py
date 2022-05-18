@@ -10,10 +10,10 @@ class User:
 
     def __init__(self, data):
         self.id = data['id']
-        self.first_name = ['first_name']
-        self.last_name = ['last_name']
-        self.email = ['email']
-        self.password = ['password']
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -44,6 +44,7 @@ class User:
     def get_from_email(cls, data):
         query = 'SELECT * FROM users WHERE email = %(email)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
+        print(results)
         if len(results) < 1:
             return False
         return cls(results[0])

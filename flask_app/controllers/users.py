@@ -1,4 +1,3 @@
-from encodings import utf_8
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
@@ -6,31 +5,6 @@ from flask_app.models.workout import Workouts
 # from flask_app.models.workout import Workout
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
-
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-
-@app.route('/login')
-def login():
-    return render_template("login.html")
-
-
-@app.route('/log_in', methods=['post'])
-def login_():
-    user = User.get_from_email(request.form)
-    if not user:
-        flash("INVALID EMAIL address", "login")
-        return redirect('/login')
-    if not bcrypt.check_password_hash( str(user.password), request.form['password']):
-        print(user.password)
-        flash("INVALID PASSWORD!!", "login")
-        return redirect('/login')
-    session['user_id'] = user.id
-    return redirect('/dashboard')
-
 
 @app.route('/registration')
 def registration():
@@ -46,12 +20,43 @@ def register():
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": bcrypt.generate_password_hash(password).decode('utf-8')
+        "password": pw_hash
     }
     id = User.save(data)
     session['user_id'] = id
 
     return redirect('/dashboard')
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+
+@app.route('/log_in', methods=['post'])
+def login_():
+    user = User.get_from_email(request.form)
+
+
+    
+    print(user.password)
+    if not user:
+
+        flash("INVALID EMAIL address", "login")
+        return redirect('/login')
+    if not bcrypt.check_password_hash( user.password, request.form['password']):
+        print(user.password)
+        flash("INVALID PASSWORD!!", "login")
+        return redirect('/login')
+    print(user.password)
+    session['user_id'] = user.id
+    return redirect('/dashboard')
+
+
 
 
 @app.route('/dashboard')
