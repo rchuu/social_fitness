@@ -1,6 +1,7 @@
-from lib2to3.pytree import _Results
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
+
+
 class Workouts:
     db = "social_fitness"
 
@@ -45,7 +46,7 @@ class Workouts:
         return cls(results[0])
 
     @classmethod
-    def get_workout_description(cls,data):
+    def get_workout_description(cls, data):
         query = 'select * from workouts where description = %(description)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
@@ -53,10 +54,10 @@ class Workouts:
         return cls(results[0])
 
     @classmethod
-    def user_workouts(cls,data):
+    def user_workouts(cls, data):
         query = 'select * from workouts join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
-        results = connectToMySQL(cls.db).query_db(query,data)
-        if len(results) <1:
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
             return False
         return cls(results[0])
 
