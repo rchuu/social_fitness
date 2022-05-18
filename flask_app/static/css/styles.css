@@ -1,3 +1,7 @@
+body {
+    font-family: 'Roboto Flex', sans-serif;
+}
+
 #login_background {
     background-image: url("../img/man-runs-across-snow.jpg");
     background-color: #cccccc;
@@ -11,6 +15,14 @@
 
 #logo {
     max-width: 350px;
+    width: 100%;
+    object-fit: contain;
+    object-fit: scale-down;
+}
+
+#logo-img {
+    content: url("../img/Social_Fitness-logo-2.png");
+    max-width: 125px;
     width: 100%;
     object-fit: contain;
     object-fit: scale-down;
