@@ -15,12 +15,12 @@ def registration():
 def register():
     if not User.validate_register(request.form):
         return redirect('/registration')
-    password = request.form['password']
+    password = bcrypt.generate_password_hash(request.form['password'])
     data = {
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": pw_hash
+        "password": password
     }
     id = User.save(data)
     session['user_id'] = id

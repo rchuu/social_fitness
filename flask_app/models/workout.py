@@ -17,13 +17,12 @@ class Workouts:
 
     @classmethod
     def saveworkout(cls, data):
-        query = '''INSERT INTO workouts (type, date, length, description)
-        VALUES (%(type)s,%(date)s,%(length)s,%(description)s);'''
+        query = 'INSERT INTO workout (type, date, length, description) VALUES (%(type)s,%(date)s,%(length)s,%(description)s);'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def get_all_workouts(cls):
-        query = 'SELECT * FROM workouts'
+        query = 'SELECT * FROM workout'
         results = connectToMySQL(cls.db).query_db(query)
         workouts = []
         for row in results:
@@ -32,7 +31,7 @@ class Workouts:
 
     @classmethod
     def get_workout_id(cls, data):
-        query = 'SELECT * FROM workouts where id = %(id)s;'
+        query = 'SELECT * FROM workout where id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
@@ -40,26 +39,26 @@ class Workouts:
 
     @classmethod
     def update_workout(cls, data):
-        query = 'update workouts set type=%(type)s, date=%(date)s, length=%(length)s, description=%(description)s, where id=%(id)s'
+        query = 'update workout set type=%(type)s, date=%(date)s, length=%(length)s, description=%(description)s, where id=%(id)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
     @classmethod
     def get_workout_description(cls, data):
-        query = 'select * from workouts where description = %(description)s'
+        query = 'select * from workout where description = %(description)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
         return cls(results[0])
 
     def delete_workout(cls, data):
-        query = 'delete from workouts where id=%(id)s'
+        query = 'delete from workout where id=%(id)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
     @classmethod
     def user_workouts(cls, data):
-        query = 'select * from workouts join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+        query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
@@ -68,7 +67,7 @@ class Workouts:
     @staticmethod
     def validate_workout(workout):
         is_valid = True
-        query = ' SELECT * FROM workouts WHERE name = %(name)s;'
+        query = ' SELECT * FROM workout WHERE name = %(name)s;'
         results = connectToMySQL(Workouts.db).query_db(query, workout)
         if len(results) >= 1:  # to check if workout has been taken
             flash("Sorry, workout is already in there", "register")
