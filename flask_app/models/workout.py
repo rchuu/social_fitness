@@ -1,6 +1,7 @@
-from lib2to3.pytree import _Results
+
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models import user
 class Workouts:
     db = "social_fitness"
 
@@ -37,20 +38,16 @@ class Workouts:
         return cls(results[0])
 
     @classmethod
-    def get_workout_length(cls, data):
-        query = 'SELECT * FROM workouts WHERE length = %(length)s;'
+    def update_workout(cls,data):
+        query = 'update workouts set type=%(type)s, date=%(date)s, length=%(length)s, description=%(description)s, where id=%(id)s'
         results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+        return results
 
     @classmethod
-    def get_workout_description(cls,data):
-        query = 'select * from workouts where description = %(description)s'
-        results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+    def delete_workout(cls,data):
+        query = 'delete from workouts where id=%(id)s'
+        results = connectToMySQL(cls.db).query_db(query,data)
+        return results
 
     @classmethod
     def user_workouts(cls,data):
@@ -61,7 +58,7 @@ class Workouts:
         return cls(results[0])
 
     @staticmethod
-    def validate_register(workout):
+    def validate_workout(workout):
         is_valid = True
         query = ' SELECT * FROM workouts WHERE name = %(name)s;'
         results = connectToMySQL(Workouts.db).query_db(query, workout)

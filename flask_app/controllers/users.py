@@ -1,6 +1,8 @@
+from encodings import utf_8
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
+from flask_app.models.workout import Workouts
 # from flask_app.models.workout import Workout
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -22,7 +24,7 @@ def login_():
     if not user:
         flash("INVALID EMAIL address", "login")
         return redirect('/login')
-    if not bcrypt.check_password_hash(user.password, request.form['password']):
+    if not bcrypt.check_password_hash( str(user.password), request.form['password']):
         print(user.password)
         flash("INVALID PASSWORD!!", "login")
         return redirect('/login')
@@ -39,12 +41,12 @@ def registration():
 def register():
     if not User.validate_register(request.form):
         return redirect('/registration')
-
+    password = request.form['password']
     data = {
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": bcrypt.generate_password_hash(request.form['password'])
+        "password": bcrypt.generate_password_hash(password).decode('utf-8')
     }
     id = User.save(data)
     session['user_id'] = id
