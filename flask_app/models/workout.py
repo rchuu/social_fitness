@@ -14,6 +14,8 @@ class Workouts:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        
+
 
     @classmethod
     def saveworkout(cls, data):
@@ -57,8 +59,8 @@ class Workouts:
         return results
 
     @classmethod
-    def user_workouts(cls, data):
-        query = 'select * from user join workout on user.id = friend.workout_id join user on friend.user_id = user.id'
+    def friend_workouts(cls, data):
+        query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         if len(results) < 1:
             return False
