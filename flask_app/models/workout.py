@@ -18,7 +18,7 @@ class Workout:
 
     @classmethod
     def saveworkout(cls, data):
-        query = 'INSERT INTO workout (type, date, length, description, user_id) VALUES (%(type)s,%(date)s,%(length)s,%(description)s), %(user_id)s;'
+        query = 'INSERT INTO workout (type, date, length, description, user_id) VALUES (%(type)s,%(date)s,%(length)s,%(description)s, %(user_id)s);'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
@@ -89,7 +89,7 @@ class Workout:
         is_valid = True
         query = ' SELECT * FROM workout WHERE type = %(type)s;'
         results = connectToMySQL(Workout.db).query_db(query, workout)
-        if len(workout) >= 1:  # to check if workout has been taken
+        if len(results) >= 1:  # to check if workout has been taken
             flash("Sorry, workout is already in there", "register")
             is_valid = False
         if len(workout['type']) < 2:

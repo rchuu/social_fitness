@@ -76,12 +76,12 @@
                             <td>{{user.first_name}}</td>
                         {% endif %}
                         {% endfor %}
-                        <td>{{workout.type}} {{workout.description}}</td>
+                        <td>{{workout.type}}</td>
                         <td>{{workout.date}}</td>
                         <td>    
-                            <a href="/view/workout/<int:id>">View</a>
-                            <a href="/edit_workout/<int:id>">Edit</a>
-                            <a href="/delete_workout/<int:id>">Remove</a>
+                            <a href="/view/workout/{{workout.id}}">View</a>
+                            <a href="/edit_workout/{{workout.id}}">Edit</a>
+                            <a href="/delete_workout/{{workout.id}}">Remove</a>
                         </td>
                     </tr>
                     {% endfor %}
