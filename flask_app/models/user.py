@@ -7,7 +7,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
 class User:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -19,12 +19,12 @@ class User:
         self.updated_at = data['updated_at']
 
     @classmethod
-    def get_one(cls,data):
-      query = "SELECT * FROM user WHERE id = %(id)s;"
-      results = connectToMySQL(cls.db).query_db(query,data)
-      if len(results) < 1:
-        return False
-      return cls(results[0])
+    def get_one(cls, data):
+        query = "SELECT * FROM user WHERE id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
 
     @classmethod
     def save(cls, data):
