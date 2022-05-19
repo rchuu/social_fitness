@@ -57,7 +57,10 @@ def dashboard():
         'id': session['user_id']
     }
     workouts = Workout.get_all_workouts()
-    return render_template('dashboard.html', user=User.get_from_id(data), workouts = workouts)
+    users = User.get_all()
+    print("*" * 30)
+    print(users)
+    return render_template('dashboard.html', user=User.get_from_id(data), workouts = workouts, users = users)
 
 
 @app.route('/profile')

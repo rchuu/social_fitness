@@ -36,7 +36,6 @@ class Friend:
                 'createdat' : f['createdat'],
                 'user_id' : f['user_id']
             }
-            friend.workout = Workouts(workoutdata)
+            friend.workout = Workout(workoutdata)
             friends.append(friend)
-            print(t)
         return result

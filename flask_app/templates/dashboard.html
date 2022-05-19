@@ -56,7 +56,7 @@
                 </div>
             </div>
         </nav>
-        <div>
+        <div
             class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
             <table class="table table-hover table-light table-responsive form-control-md">
                 <thead>
@@ -68,8 +68,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr> {% for workout in workouts %}
-                        <td>{{workout.first_name}}</td>
+                  {% for workout in workouts %}
+                    <tr> 
+                      {% for user in users %}
+                        {% if user.id == workout.user_id %}
+                          <td>{{user.first_name}}</td>
+                        {% endif %}
+                      {% endfor %}
                         <td>{{workout.type}} {{workout.description}}</td>
                         <td></td>
                         <td>    
@@ -77,8 +82,8 @@
                           <a href="#">Edit</a>
                           <a href="#">Remove</a>
                         </td>
-                    </tr>{% endfor %}
-                    
+                    </tr>
+                  {% endfor %}
                 </tbody>
             </table>
         </div>
