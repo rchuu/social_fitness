@@ -1,11 +1,10 @@
-from winreg import QueryInfoKey
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import user
 
 
 class Workout:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -15,7 +14,6 @@ class Workout:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        
 
     @classmethod
     def saveworkout(cls, data):
@@ -29,26 +27,26 @@ class Workout:
         workouts = []
         for row in results:
             data = {
-              'id': row['id'],
-              'first_name': row['first_name'],
-              'last_name': row['last_name'],
-              'type': row['type'], 
-              'date': row['date'],
-              'description': row['description'],
-              'updated_at': row['workout.updated_at'],
-              'created_at': row['workout.created_at'],
-              'length': row['length'],
-              'user_id': row['user_id']
+                'id': row['id'],
+                'first_name': row['first_name'],
+                'last_name': row['last_name'],
+                'type': row['type'],
+                'date': row['date'],
+                'description': row['description'],
+                'updated_at': row['workout.updated_at'],
+                'created_at': row['workout.created_at'],
+                'length': row['length'],
+                'user_id': row['user_id']
             }
         workouts.append(cls(data))
         return workouts
 
     @classmethod
-    def get_all_workouts_from_user(cls,data):
-      query = "SELECT * FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
-      results = connectToMySQL(cls.db).query_db(query,data)
-      return results
-    
+    def get_all_workouts_from_user(cls, data):
+        query = "SELECT * FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
     @classmethod
     def get_workout_id(cls, data):
         query = 'SELECT * FROM workout where id = %(id)s;'
@@ -88,7 +86,6 @@ class Workout:
 #         if len(results) < 1:
 #             return False
 #         return cls(results[0])
-
     @staticmethod
     def validate_workout(workout):
         is_valid = True
