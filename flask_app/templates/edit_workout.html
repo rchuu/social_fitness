@@ -58,30 +58,30 @@
             </div>
         </nav>
         <div>
-            <form action="/edit_workout" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
+            <form action="/update_workout/{{workout.id}}" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
                 <h2 class="color_white">Edit Workout</h2>
-
+                <input type="hidden" name="workout.id" >
                 <div class="d-flex justify-content-around col-9 mx-auto">
                     <div class="col-3">
                         <div class="form-group">
                             <label class="color_white" for="type">Workout Type:</label>
-                            <input type="text" name="type" value="{{edit.type}}" class="form-control">
+                            <input type="text" name="type" value="{{workout.type}}" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="color_white" for="description">Description:</label>
                             <textarea name="description" cols="30" rows="5"
-                                class="form-control">value="{{edit.description}}"</textarea>
+                                class="form-control">{{workout.description}}</textarea>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label class="color_white" for="length">Length(minutes):</label>
-                            <input type="text" name="length" value="{{edit.length}}" class="form-control">
+                            <input type="text" name="length" value="{{workout.length}}" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label class="color_white" for="date">Date of Workout:</label>
-                            <input type="date" name="date" value="{{edit.date}}" class="form-control">
+                            <input type="date" name="date" value="{{workout.date}}" class="form-control">
                         </div>
                     </div>
                 </div>

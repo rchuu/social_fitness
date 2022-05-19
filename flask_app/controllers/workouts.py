@@ -15,11 +15,11 @@ def add_workout():
 
 
 @app.route('/add_workout', methods=['post'])
-def addWorkout(cls, data):
+def addWorkout():
     if 'user_id' not in session:
         return redirect('/logout')
     if not Workout.validate_workout(request.form):
-        return redirect('/dashboard')
+        return redirect('/add')
     data = {
         "type": request.form['type'],
         "date": request.form['date'],
@@ -46,7 +46,7 @@ def updateWorkout(id):
     return render_template('edit_workout.html', workout=workout, user=user)
 
 
-@app.route('/update_workout/<int:id>')
+@app.route('/update_workout/<int:id>', methods = ['post'])
 def update_workout(id):
     if 'user_id' not in session:
         return redirect('/logout')
