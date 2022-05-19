@@ -4,7 +4,7 @@ from flask_app.models import user
 
 
 class Workouts:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -14,6 +14,8 @@ class Workouts:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        
+
 
     @classmethod
     def saveworkout(cls, data):
@@ -57,12 +59,17 @@ class Workouts:
         return results
 
     @classmethod
-    def user_workouts(cls, data):
-        query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
-        results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+# <<<<<<< updates
+#     def friend_workouts(cls, data):
+#         query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
+# =======
+#     def user_workouts(cls, data):
+#         query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+# >>>>>>> main
+#         results = connectToMySQL(cls.db).query_db(query, data)
+#         if len(results) < 1:
+#             return False
+#         return cls(results[0])
 
     @staticmethod
     def validate_workout(workout):
