@@ -3,20 +3,27 @@ from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
 
+@app.route('/add')
+def add_workout():
+  if 'user_id' not in session:
+    return redirect('/logout')
+  data = {
+    'id': session['user_id']
+  }
+  return render_template("add_workout.html", user = User.get_one(data))
 
-
-@app.route('/add_workout/', methods=['post'])
+@app.route('/add_workout', methods=['post'])
 def addWorkout(cls, data):
     if 'user_id' not in session:
         return redirect('/logout')
     if not Workout.validate_workout(request.form):
-        return redirect('/new/sight')
+        return redirect('/dashboard')
     data={
         "type":request.form['type'],
         "date":request.form['date'],
         "length":request.form['length'],
         "description": request.form['description'],
-        "id":id
+        'user_id': session['user_id']
     }
     Workout.saveworkout(data)
     return redirect('/profile')

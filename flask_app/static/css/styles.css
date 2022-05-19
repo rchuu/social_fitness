@@ -38,3 +38,7 @@ body {
     object-fit: contain;
     object-fit: scale-down;
 }
+
+.color_white {
+  color: white;
+}
