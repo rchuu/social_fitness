@@ -15,7 +15,7 @@ def add_workout():
 
 
 @app.route('/add_workout', methods=['post'])
-def addWorkout(cls, data):
+def addWorkout():
     if 'user_id' not in session:
         return redirect('/logout')
     if not Workout.validate_workout(request.form):

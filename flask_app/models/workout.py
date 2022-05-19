@@ -87,12 +87,12 @@ class Workout:
     @staticmethod
     def validate_workout(workout):
         is_valid = True
-        query = ' SELECT * FROM workout WHERE name = %(name)s;'
+        query = ' SELECT * FROM workout WHERE type = %(type)s;'
         results = connectToMySQL(Workout.db).query_db(query, workout)
-        if len(results) >= 1:  # to check if workout has been taken
+        if len(workout) >= 1:  # to check if workout has been taken
             flash("Sorry, workout is already in there", "register")
             is_valid = False
-        if len(workout['name']) < 2:
+        if len(workout['type']) < 2:
             flash("Workout needs a name", "register")
         if int(workout['length']) < 2:
             flash("comeon how long was it", "register")
