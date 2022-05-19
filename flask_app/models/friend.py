@@ -1,7 +1,7 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app.models import user, workout
-from social_fitness.flask_app.models.workout import Workouts
+from flask_app.models import user, workout, friend
+from flask_app.models.workout import Workout
 
 
 class Friend:

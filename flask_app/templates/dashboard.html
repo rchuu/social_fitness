@@ -40,7 +40,7 @@
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">My Profile</a>
+                                <a class="nav-link" href="/profile">My Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Add Workout</a>
@@ -56,8 +56,7 @@
                 </div>
             </div>
         </nav>
-
-        <div
+        <div>
             class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
             <table class="table table-hover table-light table-responsive form-control-md">
                 <thead>
@@ -69,16 +68,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr> {% for workout in workouts %}
+                        <td>{{workout.first_name}}</td>
+                        <td>{{workout.type}} {{workout.description}}</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a href="#">View</a>
-                            <a href="#">Edit</a>
-                            <a href="#">Remove</a>
+                        <td>    
+                          <a href="#">View</a>
+                          <a href="#">Edit</a>
+                          <a href="#">Remove</a>
                         </td>
-                    </tr>
+                    </tr>{% endfor %}
+                    
                 </tbody>
             </table>
         </div>

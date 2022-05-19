@@ -36,14 +36,17 @@
                             <a class="nav-link" href="/profile">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                          <a class="nav-link" href="/logout">Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
         <main>
-
+          {% for workout in user_workouts %}
+            {{workout.type}}
+            {{workout.description}}
+          {% endfor %}
         </main>
     </body>
 
