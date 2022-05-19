@@ -4,7 +4,7 @@ from flask_app.models import user
 
 
 class Workout:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']

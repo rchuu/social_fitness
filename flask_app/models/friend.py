@@ -5,7 +5,7 @@ from flask_app.models.workout import Workout
 
 
 class Friend:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
