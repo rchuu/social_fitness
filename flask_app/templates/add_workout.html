@@ -18,65 +18,89 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
     </head>
-    <nav class="navbar bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" id="logo-img" href="#"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Add Workout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Edit Workout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
 
     <body id="background-img">
         <script src="scripts.js"></script>
-        <div
-            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
-            <table class="table table-hover table-light table-responsive form-control-md">
-                <thead>
-                    <tr>
-                        <th>Friend</th>
-                        <th>Workout</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a href="#">View</a>
-                            <a href="#">Edit</a>
-                            <a href="#">Remove</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="logo-img" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Add Workout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Edit Workout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div>
+            <form action="/add_workout/" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
+                <h2 class="">Add a New Workout</h2>
+                <!-- {% with messages = get_flashed_messages(category_filter=['workout']) %}
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Flash AHHHHHHH!!!!</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %} -->
+
+                <div class="d-flex justify-content-around col-9 mx-auto">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="type">Workout Type:</label>
+                            <input type="select" name="type" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea name="description" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="activities">Activities:</label>
+                            <textarea name="activities" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="location">Location:</label>
+                            <input type="text" name="location" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">Date of Workout:</label>
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mx-5 py-5">
+                    <input type="submit" value="Add Workout" class="btn btn-dark">
+                </div>
+            </form>
         </div>
     </body>
 

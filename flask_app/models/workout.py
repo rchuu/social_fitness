@@ -4,7 +4,7 @@ from flask_app.models import user
 
 
 class Workout:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -15,7 +15,6 @@ class Workout:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
-        
 
     @classmethod
     def saveworkout(cls, data):
@@ -26,30 +25,30 @@ class Workout:
     def get_all_workouts(cls):
         query = "SELECT * FROM user JOIN workout ON user.id = workout.user_id"
         results = connectToMySQL(cls.db).query_db(query)
-        
+
         workouts = []
         for row in results:
             data = {
-              'id': row['workout.id'],
-              'first_name': row['first_name'],
-              'last_name': row['last_name'],
-              'type': row['type'], 
-              'date': row['date'],
-              'description': row['description'],
-              'updated_at': row['workout.updated_at'],
-              'created_at': row['workout.created_at'],
-              'length': row['length'],
-              'user_id': row['user_id']
+                'id': row['workout.id'],
+                'first_name': row['first_name'],
+                'last_name': row['last_name'],
+                'type': row['type'],
+                'date': row['date'],
+                'description': row['description'],
+                'updated_at': row['workout.updated_at'],
+                'created_at': row['workout.created_at'],
+                'length': row['length'],
+                'user_id': row['user_id']
             }
             workouts.append(cls(data))
         return workouts
 
     @classmethod
-    def get_all_workouts_from_user(cls,data):
-      query = "SELECT * FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
-      results = connectToMySQL(cls.db).query_db(query,data)
-      return results
-    
+    def get_all_workouts_from_user(cls, data):
+        query = "SELECT * FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
     @classmethod
     def get_workout_id(cls, data):
         query = 'SELECT * FROM workout where id = %(id)s;'
@@ -78,17 +77,12 @@ class Workout:
         return results
 
     @classmethod
-# <<<<<<< updates
-#     def friend_workouts(cls, data):
-#         query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
-# =======
-#     def user_workouts(cls, data):
-#         query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
-# >>>>>>> main
-#         results = connectToMySQL(cls.db).query_db(query, data)
-#         if len(results) < 1:
-#             return False
-#         return cls(results[0])
+    def user_workouts(cls, data):
+        query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
 
     @staticmethod
     def validate_workout(workout):
