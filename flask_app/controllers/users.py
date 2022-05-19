@@ -58,8 +58,6 @@ def dashboard():
     }
     workouts = Workout.get_all_workouts()
     users = User.get_all()
-    print("*" * 30)
-    print(users)
     return render_template('dashboard.html', user=User.get_from_id(data), workouts = workouts, users = users)
 
 

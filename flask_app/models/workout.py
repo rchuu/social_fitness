@@ -4,7 +4,7 @@ from flask_app.models import user
 
 
 class Workout:
-    db = "social_fitness2"
+    db = "social_fitness"
 
     def __init__(self, data):
         self.id = data['id']
@@ -18,7 +18,7 @@ class Workout:
 
     @classmethod
     def saveworkout(cls, data):
-        query = 'INSERT INTO workout (type, date, length, description) VALUES (%(type)s,%(date)s,%(length)s,%(description)s);'
+        query = 'INSERT INTO workout (type, date, length, description, user_id) VALUES (%(type)s,%(date)s,%(length)s,%(description)s), %(user_id)s;'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod

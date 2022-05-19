@@ -31,7 +31,7 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}} {{user.last_name}}  </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -57,11 +57,11 @@
             </div>
         </nav>
         <div>
-            <form action="/add_workout/" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
-                <h2 class="">Add a New Workout</h2>
+            <form action="/add_workout" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
+                <h2 class="color_white">Add a New Workout</h2>
                 <!-- {% with messages = get_flashed_messages(category_filter=['workout']) %}
                 {% if messages %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger"  role="alert">
                     <strong>Flash AHHHHHHH!!!!</strong>
                     {% for message in messages %}
                     <p>{{message}}</p>
@@ -73,26 +73,27 @@
                 <div class="d-flex justify-content-around col-9 mx-auto">
                     <div class="col-3">
                         <div class="form-group">
-                            <label for="type">Workout Type:</label>
-                            <input type="select" name="type" class="form-control">
+                            <label class="color_white" for="type">Workout Type:</label>
+                            <input type="text" name="type" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label class="color_white" for="description">Description:</label>
                             <textarea name="description" cols="30" rows="5" class="form-control"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="activities">Activities:</label>
+                        <!-- <div class="form-group">
+                            <label class="color_white" for="activities">Activities:</label>
                             <textarea name="activities" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
+                        </div> -->
+                        <!-- no activites in the table?? -->
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label for="location">Location:</label>
-                            <input type="text" name="location" class="form-control">
+                            <label class="color_white" for="length">Length(minutes):</label>
+                            <input type="text" name="length" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label for="date">Date of Workout:</label>
+                            <label class="color_white" for="date">Date of Workout:</label>
                             <input type="date" name="date" class="form-control">
                         </div>
                     </div>

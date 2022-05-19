@@ -42,13 +42,14 @@
                                 <a class="nav-link" href="/profile">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Add Workout</a>
+                                <a class="nav-link" href="/add">Add Workout</a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="/edit_workout/<int:id>">Edit Workout</a>
+                            </li> --> 
+                            <!-- should we get rid of this?? -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Edit Workout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Logout</a>
+                                <a class="nav-link" href="/logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -76,11 +77,11 @@
                         {% endif %}
                       {% endfor %}
                         <td>{{workout.type}} {{workout.description}}</td>
-                        <td></td>
+                        <td>{{workout.date}}</td>
                         <td>    
-                          <a href="#">View</a>
-                          <a href="#">Edit</a>
-                          <a href="#">Remove</a>
+                          <a href="/view/workout/<int:id>">View</a>
+                          <a href="/edit_workout/<int:id>">Edit</a>
+                          <a href="/delete_workout/<int:id>">Remove</a>
                         </td>
                     </tr>
                   {% endfor %}

@@ -1,11 +1,11 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import user, workout, friend
-# from flask_app.models.workout import Workout
+from flask_app.models.workout import Workout
 
 
 class Friend:
-    db = "social_fitness2"
+    db = "social_fitness"
 
     def __init__(self, data):
         self.id = data['id']
