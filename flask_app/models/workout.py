@@ -14,6 +14,7 @@ class Workout:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.user_id = data['user_id']
 
     @classmethod
     def saveworkout(cls, data):
@@ -24,10 +25,11 @@ class Workout:
     def get_all_workouts(cls):
         query = "SELECT * FROM user JOIN workout ON user.id = workout.user_id"
         results = connectToMySQL(cls.db).query_db(query)
+
         workouts = []
         for row in results:
             data = {
-                'id': row['id'],
+                'id': row['workout.id'],
                 'first_name': row['first_name'],
                 'last_name': row['last_name'],
                 'type': row['type'],
@@ -38,7 +40,7 @@ class Workout:
                 'length': row['length'],
                 'user_id': row['user_id']
             }
-        workouts.append(cls(data))
+            workouts.append(cls(data))
         return workouts
 
     @classmethod
@@ -75,22 +77,18 @@ class Workout:
         return results
 
     @classmethod
-# <<<<<<< updates
-#     def friend_workouts(cls, data):
-#         query = 'select * from user left join friendship on user.id = friendship.user_id left join workout on workout.user_id = friendship.friend_id where user.id = %(user)s'
-# =======
-#     def user_workouts(cls, data):
-#         query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
-# >>>>>>> main
-#         results = connectToMySQL(cls.db).query_db(query, data)
-#         if len(results) < 1:
-#             return False
-#         return cls(results[0])
+    def user_workouts(cls, data):
+        query = 'select * from workout join friends on workouts.id = friends.workout_id join users on friends.user_id = users.id'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
+
     @staticmethod
     def validate_workout(workout):
         is_valid = True
         query = ' SELECT * FROM workout WHERE name = %(name)s;'
-        results = connectToMySQL(Workouts.db).query_db(query, workout)
+        results = connectToMySQL(Workout.db).query_db(query, workout)
         if len(results) >= 1:  # to check if workout has been taken
             flash("Sorry, workout is already in there", "register")
             is_valid = False

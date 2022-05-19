@@ -1,7 +1,7 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import user, workout, friend
-from flask_app.models.workout import Workout
+# from flask_app.models.workout import Workout
 
 
 class Friend:
@@ -35,7 +35,6 @@ class Friend:
                 'createdat': f['createdat'],
                 'user_id': f['user_id']
             }
-            friend.workout = Workouts(workoutdata)
+            friend.workout = Workout(workoutdata)
             friends.append(friend)
-            print(t)
         return result

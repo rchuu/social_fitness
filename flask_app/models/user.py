@@ -1,8 +1,8 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 import re
-from flask_app.models.workout import workout
-from flask_app.models.friend import friend
+from flask_app.models.workout import Workout
+from flask_app.models.friend import Friend
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
@@ -20,8 +20,7 @@ class User:
 
     @classmethod
     def save(cls, data):
-        query = '''INSERT INTO user (first_name, last_name, email, password)
-        VALUES (%(first_name)s,%(last_name)s,%(email)s,%(password)s);'''
+        query = 'INSERT INTO user (first_name, last_name, email, password) VALUES (%(first_name)s,%(last_name)s,%(email)s,%(password)s);'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
