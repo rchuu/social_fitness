@@ -40,15 +40,12 @@ def login():
 @app.route('/log_in', methods=['post'])
 def login_():
     user = User.get_from_email(request.form)
-    print(user.password)
     if not user:
-        flash("INVALID EMAIL address", "login")
+        flash("EMAIL address not registered", "login")
         return redirect('/login')
     if not bcrypt.check_password_hash( user.password, request.form['password']):
-        print(user.password)
         flash("INVALID PASSWORD!!", "login")
         return redirect('/login')
-    print(user.password)
     session['user_id'] = user.id
     return redirect('/dashboard')
 
