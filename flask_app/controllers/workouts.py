@@ -2,6 +2,8 @@ from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
+from flask_app.models.friend import Friend
+from flask_app.controllers import users
 
 
 @app.route('/add')
@@ -46,8 +48,8 @@ def updateWorkout(id):
     return render_template('edit_workout.html', workout=workout, user=user)
 
 
-@app.route('/update_workout/<int:id>', methods = ['post'])
-def update_workout(id):
+@app.route('/update_workout', methods = ['POST'])
+def update_workout():
     if 'user_id' not in session:
         return redirect('/logout')
     if not Workout.validate_workout(request.form):
@@ -57,7 +59,7 @@ def update_workout(id):
         "date": request.form['date'],
         "length": request.form['length'],
         "description": request.form['description'],
-        "id": id
+        "id": request.form['id'],
     }
     Workout.update_workout(data)
     return redirect('/profile')

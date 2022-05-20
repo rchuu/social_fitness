@@ -61,7 +61,7 @@
                                 <img src="../img/usericon.jpeg" alt="usericon" class="avatar-m">
                             </div>
                             <div class="card-body">
-                                <h1>Profile User Name Here</h1>
+                                <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
                                 <h3>Social Fitness Life</h3>
                                 <p>Athlete | Weight Loss | Strength</p>
                                 <!-- <p>
@@ -87,7 +87,7 @@
                                 </thead>
                                 <tbody>
 
-                                    {% for workout in workouts %}
+                                    {% for workout in user_workouts %}
                                     <tr>
                                         <!-- {% for user in users %}
                                     {% if user.id == workout.user_id %}
@@ -95,7 +95,7 @@
                                     {% endif %}
                                     {% endfor %} -->
                                         <td>{{workout.type}}</td>
-                                        <td>{{workout.date}}</td>
+                                        <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
                                         <td>
                                             <a href="/view/workout/{{workout.id}}">View</a>
                                             <a href="/edit_workout/{{workout.id}}">Edit</a>

@@ -65,21 +65,21 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label class="color_white" for="type">Workout Type:</label>
-                            <input type="text" name="type" value="{{workout.type}}" class="form-control">
+                            <div name="type" class="form-control">{{workout.type}}</div>
                         </div>
                         <div class="form-group">
                             <label class="color_white" for="description">Description:</label>
-                            <textarea name="description" cols="30" rows="5"
-                                class="form-control">{{workout.description}}</textarea>
+                            <div name="description" cols="30" rows="5"
+                                class="form-control">{{workout.description}}</div>
                         </div>
                         <div class="form-group">
                             <label class="color_white" for="length">Length(minutes):</label>
-                            <input type="text" name="length" value="{{workout.length}}" class="form-control">
+                            <div name="length" class="form-control">{{workout.length}}</div>
                         </div>
 
                         <div class="form-group">
                             <label class="color_white" for="date">Date of Workout:</label>
-                            <input type="date" name="date" value="{{workout.date}}" class="form-control">
+                            <div name="date" class="form-control">{{workout.date.strftime('%B, %d, %Y')}}</div>
                         </div>
                     </div>
                 </div>

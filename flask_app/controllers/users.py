@@ -2,6 +2,7 @@ from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
+from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -69,7 +70,8 @@ def profile():
         'id': session['user_id']
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
-    return render_template('view_profile.html', user_workouts = user_workouts)
+    user=User.get_from_id(data)
+    return render_template('view_profile.html', user_workouts = user_workouts, user = user)
 
 
 @app.route('/logout')

@@ -70,7 +70,8 @@ class Workout:
         if len(results) < 1:
             return False
         return cls(results[0])
-
+    
+    @classmethod
     def delete_workout(cls, data):
         query = 'delete from workout where id=%(id)s'
         results = connectToMySQL(cls.db).query_db(query, data)
