@@ -19,7 +19,7 @@
             crossorigin="anonymous"></script>
     </head>
 
-    <body id="background-img">
+    <body id="background-img4">
         <script src="scripts.js"></script>
         <nav class="navbar bg-light">
             <div class="container-fluid">
@@ -44,6 +44,9 @@
                                 <a class="nav-link" href="/profile">My Profile</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="#">Add Workout</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
                             </li>
                         </ul>
@@ -51,55 +54,41 @@
                 </div>
             </div>
         </nav>
-        <div>
-            <form action="/add_workout" method="POST" class="col-10 p-4 my-4 bg-transparent mx-auto form-control-sm">
-                <h2 class="text-light">Add a New Workout</h2>
-                <!-- {% with messages = get_flashed_messages(category_filter=['workout']) %}
-                {% if messages %}
-                <div class="alert alert-danger"  role="alert">
-                    <strong>Flash AHHHHHHH!!!!</strong>
-                    {% for message in messages %}
-                    <p>{{message}}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                {% endwith %} -->
+        <main>
+            <div>
+                <h2 class="text-light my-5 mx-5">View Workout</h2>
+                <!-- <form action="/update_workout/{{workout.id}}" method="POST"
+                class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm"> -->
 
-                <div class="d-flex justify-content-around col-9 mx-auto">
-                    <div class="col-3 text-light">
+                <!-- <input type="hidden" name="workout.id"> -->
+                <div class="d-flex justify-content-around mx-auto text-light">
+                    <div class="col-3">
                         <div class="form-group">
-                            <label class="" for="type">Workout Type:</label>
-                            <select class="form-control" name="type">
-                                <option>Running</option>
-                                <option>Swimming</option>
-                                <option>Basketball</option>
-                                <option>Hiking</option>
-                                <option>Pooping</option>
-                            </select>
-                            <!-- <input type="text" name="type" class="form-control"> -->
+                            <label class="color_white" for="type">Workout Type:</label>
+                            <input type="text" name="type" value="{{workout.type}}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="" for="description">Description:</label>
-                            <textarea name="description" cols="30" rows="5" class="form-control"></textarea>
+                            <label class="color_white" for="description">Description:</label>
+                            <textarea name="description" cols="30" rows="5"
+                                class="form-control">{{workout.description}}</textarea>
                         </div>
-                    </div>
-                    <div class="col-3 text-light">
                         <div class="form-group">
-                            <label class="" for="length">Length(minutes):</label>
-                            <input type="text" name="length" class="form-control">
+                            <label class="color_white" for="length">Length(minutes):</label>
+                            <input type="text" name="length" value="{{workout.length}}" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label class="" for="date">Date of Workout:</label>
-                            <input type="date" name="date" class="form-control">
+                            <label class="color_white" for="date">Date of Workout:</label>
+                            <input type="date" name="date" value="{{workout.date}}" class="form-control">
                         </div>
                     </div>
                 </div>
-                <div class="text-center mx-5 py-5">
-                    <input type="submit" Value="Add Workout" class="btn btn-dark">
-                </div>
-            </form>
-        </div>
+                <!-- <div class="text-center mx-5 py-5">
+                <input type="submit" value="Edit Workout" class="btn btn-dark">
+            </div> -->
+                <!-- </form> -->
+            </div>
+        </main>
     </body>
 
 </html>

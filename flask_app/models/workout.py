@@ -4,7 +4,7 @@ from flask_app.models import user
 
 
 class Workout:
-    db = "social_fitness"
+    db = "social_fitness2"
 
     def __init__(self, data):
         self.id = data['id']
@@ -18,7 +18,7 @@ class Workout:
 
     @classmethod
     def saveworkout(cls, data):
-        query = 'INSERT INTO workout (type, date, length, description, user_id) VALUES (%(type)s,%(date)s,%(length)s,%(description)s), %(user_id)s;'
+        query = 'INSERT INTO workout (type, date, length, description, user_id) VALUES (%(type)s,%(date)s,%(length)s,%(description)s, %(user_id)s);'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
@@ -87,12 +87,12 @@ class Workout:
     @staticmethod
     def validate_workout(workout):
         is_valid = True
-        query = ' SELECT * FROM workout WHERE name = %(name)s;'
+        query = ' SELECT * FROM workout WHERE type = %(type)s;'
         results = connectToMySQL(Workout.db).query_db(query, workout)
         if len(results) >= 1:  # to check if workout has been taken
             flash("Sorry, workout is already in there", "register")
             is_valid = False
-        if len(workout['name']) < 2:
+        if len(workout['type']) < 2:
             flash("Workout needs a name", "register")
         if int(workout['length']) < 2:
             flash("comeon how long was it", "register")
