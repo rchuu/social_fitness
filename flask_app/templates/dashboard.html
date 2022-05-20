@@ -18,7 +18,8 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
     </head>
-    <body id="background-img">
+
+    <body id="background-img1">
         <script src="scripts.js"></script>
         <nav class="navbar bg-light">
             <div class="container-fluid">
@@ -44,10 +45,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/add">Add Workout</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="/edit_workout/<int:id>">Edit Workout</a>
-                            </li> --> 
-                            <!-- should we get rid of this?? -->
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
                             </li>
@@ -58,7 +55,7 @@
         </nav>
         <div
             class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
-            <table class="table table-hover table-light table-responsive form-control-md">
+            <table class="table table-hover table-light table-responsive form-control-md table-striped">
                 <thead>
                     <tr>
                         <th>Friend</th>
@@ -70,18 +67,20 @@
                 <tbody>
 
                     {% for workout in workouts %}
-                    <tr> 
+                    <tr>
                         {% for user in users %}
                         {% if user.id == workout.user_id %}
-                            <td>{{user.first_name}}</td>
+                        <td>{{user.first_name}}</td>
                         {% endif %}
                         {% endfor %}
                         <td>{{workout.type}}</td>
-                        <td>{{workout.date}}</td>
-                        <td>    
+                        <td>{{workout.date.strftime('%B %d, %Y')}}</td>
+                        <td>
                             <a href="/view/workout/{{workout.id}}">View</a>
+                            {% if workout.user_id == session.user_id %}
                             <a href="/edit_workout/{{workout.id}}">Edit</a>
                             <a href="/delete_workout/{{workout.id}}">Remove</a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
