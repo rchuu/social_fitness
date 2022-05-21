@@ -33,11 +33,13 @@ class User:
 
     @classmethod
     def get_all(cls):
-        query = 'SELECT * FROM user'
+        query = 'SELECT * FROM user left join workout on user.id = workout.user_id order by workout.date DESC'
         results = connectToMySQL(cls.db).query_db(query)
         users = []
         for row in results:
-            users.append(cls(row))
+            user=cls(row)
+            user.workout = Workout.get_workout_id({"id":row['workout.id']})
+            users.append(user)
         return users
 
     @classmethod
@@ -64,6 +66,33 @@ class User:
     #     if len(results) < 1:
     #         return False
     #     return cls(cls(results[0]))
+
+    @classmethod
+    def userfriendworkouts(cls, data):
+        query = 'SELECT * FROM user JOIN friendship ON user.id=friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id left join workout on friendship.friend_id = workout.user_id where user.id = %(id)s'
+        result = connectToMySQL(cls.db).query_db(query, data)
+        user = cls(result[0])
+        user.friends = []
+        for f in result:
+            friend = cls.get_from_id({'id':f['friendship.friend_id']})
+
+            workoutdata = {
+                'id': f['id'],
+                'type': f['type'],
+                'description': f['description'],
+                'length': f['length'],
+                'date': f['date'],
+                'updatedat': f['updatedat'],
+                'createdat': f['createdat'],
+                'user_id': f['user_id']
+            }
+
+            friend.workout = Workout(workoutdata)
+            user.friends.append(friend)
+        return user
+
+
+
 
     @staticmethod
     def validate_register(user):

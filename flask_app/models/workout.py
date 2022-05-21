@@ -45,9 +45,12 @@ class Workout:
 
     @classmethod
     def get_all_workouts_from_user(cls, data):
-        query = "SELECT * FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
+        query = "SELECT workout.* FROM user  JOIN workout ON user.id = workout.user_id WHERE user_id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
-        return results
+        workouts = []
+        for row in results:
+            workouts.append(cls(row))
+        return workouts
 
     @classmethod
     def get_workout_id(cls, data):
