@@ -53,7 +53,7 @@ def update_workout():
     if 'user_id' not in session:
         return redirect('/logout')
     if not Workout.validate_workout(request.form):
-        return redirect('/edit_workout/<int:id>')
+        return redirect(f'/edit_workout/{id}')
     data = {
         "type": request.form['type'],
         "date": request.form['date'],

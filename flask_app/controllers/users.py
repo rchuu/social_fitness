@@ -6,6 +6,7 @@ from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
+
 @app.route('/registration')
 def registration():
     return render_template("registration.html")
@@ -20,7 +21,8 @@ def register():
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": password
+        "password": password,
+        'user_id': session['user_id']
     }
     id = User.save(data)
     session['user_id'] = id
@@ -43,7 +45,7 @@ def login_():
     if not user:
         flash("EMAIL address not registered", "login")
         return redirect('/login')
-    if not bcrypt.check_password_hash( user.password, request.form['password']):
+    if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash("INVALID PASSWORD!!", "login")
         return redirect('/login')
     session['user_id'] = user.id
@@ -59,7 +61,7 @@ def dashboard():
     }
     workouts = Workout.get_all_workouts()
     users = User.get_all()
-    return render_template('dashboard.html', user=User.get_from_id(data), workouts = workouts, users = users)
+    return render_template('dashboard.html', user=User.get_from_id(data), workouts=workouts, users=users)
 
 
 @app.route('/profile')
@@ -67,7 +69,7 @@ def profile():
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
-        'id': session['user_id']
+        'id': session['user_id'],
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
     user=User.get_from_id(data)

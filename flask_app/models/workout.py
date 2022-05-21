@@ -59,7 +59,7 @@ class Workout:
 
     @classmethod
     def update_workout(cls, data):
-        query = 'update workout set type=%(type)s, date=%(date)s, length=%(length)s, description=%(description)s, where id=%(id)s'
+        query = 'update workout set type=%(type)s, date=%(date)s, length=%(length)s, description=%(description)s where id=%(id)s'
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
@@ -70,7 +70,7 @@ class Workout:
         if len(results) < 1:
             return False
         return cls(results[0])
-    
+
     @classmethod
     def delete_workout(cls, data):
         query = 'delete from workout where id=%(id)s'
@@ -90,9 +90,9 @@ class Workout:
         is_valid = True
         query = ' SELECT * FROM workout WHERE type = %(type)s;'
         results = connectToMySQL(Workout.db).query_db(query, workout)
-        if len(results) >= 1:  # to check if workout has been taken
-            flash("Sorry, workout is already in there", "register")
-            is_valid = False
+        # if len(results) >= 1:  # to check if workout has been taken
+        #     flash("Sorry, workout is already in there", "register")
+        #     is_valid = False
         if len(workout['type']) < 2:
             flash("Workout needs a name", "register")
         if int(workout['length']) < 2:

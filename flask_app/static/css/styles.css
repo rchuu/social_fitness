@@ -82,7 +82,6 @@ body {
     background-color: #333333;
 }
 
-
 .container {
     width: 1080px;
     margin: 0 auto;
@@ -124,12 +123,13 @@ body {
 }
 
 .card-header {
-    background-color: #17a2b8;
-    height: 125px;
-    margin-bottom: 70px;
+    /* background-color: #17a2b8; */
+    height: 55px;
+    /* margin-bottom: 70px; */
 }
 
 .card-body {
+    height: 250px;
     padding: 25px;
 }
 

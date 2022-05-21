@@ -55,38 +55,25 @@
             </div>
         </nav>
         <main>
-            <div>
+            <div class="col-4 mx-auto py-5 d-flex justify-content-center flex-column">
+                >
                 <h2 class="text-light my-5 mx-5">View Workout</h2>
-                <!-- <form action="/update_workout/{{workout.id}}" method="POST"
-                class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm"> -->
-
-                <!-- <input type="hidden" name="workout.id"> -->
-                <div class="d-flex justify-content-around mx-auto text-light">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label class="color_white" for="type">Workout Type:</label>
-                            <div name="type" class="form-control">{{workout.type}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="color_white" for="description">Description:</label>
-                            <div name="description" cols="30" rows="5"
-                                class="form-control">{{workout.description}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="color_white" for="length">Length(minutes):</label>
-                            <div name="length" class="form-control">{{workout.length}}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="color_white" for="date">Date of Workout:</label>
-                            <div name="date" class="form-control">{{workout.date.strftime('%B, %d, %Y')}}</div>
-                        </div>
-                    </div>
+                <div class="card">
+                    <div class="card-header bg-dark text-light">Workout Type:</div>
+                    <div class="card-body">{{workout.type}}</div>
                 </div>
-                <!-- <div class="text-center mx-5 py-5">
-                <input type="submit" value="Edit Workout" class="btn btn-dark">
-            </div> -->
-                <!-- </form> -->
+                <div class="card">
+                    <div class="card-header bg-dark text-light">Description:</div>
+                    <div class="card-body">{{workout.description}}</div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-dark text-light">Length(minutes):</div>
+                    <div class="card-body">{{workout.length}}</div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-dark text-light">Date of Workout:</div>
+                    <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
+                </div>
             </div>
         </main>
     </body>
