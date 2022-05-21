@@ -59,7 +59,6 @@
                 <h2 class="text-light my-5 mx-5">View Workout</h2>
                 <!-- <form action="/update_workout/{{workout.id}}" method="POST"
                 class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm"> -->
-
                 <!-- <input type="hidden" name="workout.id"> -->
                 <div class="d-flex justify-content-around mx-auto text-light">
                     <div class="col-3">
@@ -72,11 +71,10 @@
                             <textarea name="description" cols="30" rows="5"
                                 class="form-control">{{workout.description}}</textarea>
                         </div>
-                        <div class="form-group">
+                        <div clas="form-group">
                             <label class="color_white" for="length">Length(minutes):</label>
                             <input type="text" name="length" value="{{workout.length}}" class="form-control">
                         </div>
-
                         <div class="form-group">
                             <label class="color_white" for="date">Date of Workout:</label>
                             <input type="date" name="date" value="{{workout.date}}" class="form-control">
