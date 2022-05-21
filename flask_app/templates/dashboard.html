@@ -31,13 +31,16 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
+
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}}
+                            {{user.last_name}}</h5>
+
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/profile">My Profile</a>
@@ -67,6 +70,7 @@
                 <tbody>
                     {% for user in users %}
                     <tr>
+JBstuff
                         <td>{{user.first_name}} 
                         </td>
                                     <td>{{user.workout.type}}</td>
@@ -79,12 +83,14 @@
                                         <a href="/edit_workout/{{user.workout.id}}">Edit</a>
                                         <a href="/delete_workout/{{user.workout.id}}">Remove</a>
                                         {% endif %}
+
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
     </body>
 
 </html>
