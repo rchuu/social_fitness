@@ -3,6 +3,7 @@ from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
 from flask_bcrypt import Bcrypt
+from flask_app.models.friend import Friend
 bcrypt = Bcrypt(app)
 
 @app.route('/registration')
@@ -56,9 +57,12 @@ def dashboard():
     data = {
         'id': session['user_id']
     }
+
+    # everything = User.userfriendworkouts()
     workouts = Workout.get_all_workouts()
     users = User.get_all()
-    return render_template('dashboard.html', user=User.get_from_id(data), workouts = workouts, users = users)
+    friends = Friend.get_all_friends()
+    return render_template('dashboard.html',user=User.get_from_id(data), workouts = workouts, users = users, friends = friends)
 
 
 @app.route('/profile')
@@ -76,3 +80,16 @@ def profile():
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route('/addfriend/<int:id>')
+def addfriend(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = {
+        'user_id' : session['user_id'],
+        'friend_id': id
+    }
+    Friend.add_friend(data)
+    return redirect('/dashboard')
+
+

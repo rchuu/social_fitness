@@ -65,22 +65,20 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    {% for workout in workouts %}
+                    {% for user in users %}
                     <tr>
-                        {% for user in users %}
-                        {% if user.id == workout.user_id %}
-                        <td>{{user.first_name}}</td>
-                        {% endif %}
-                        {% endfor %}
-                        <td>{{workout.type}}</td>
-                        <td>{{workout.date.strftime('%B %d, %Y')}}</td>
-                        <td>
-                            <a href="/view/workout/{{workout.id}}">View</a>
-                            {% if workout.user_id == session.user_id %}
-                            <a href="/edit_workout/{{workout.id}}">Edit</a>
-                            <a href="/delete_workout/{{workout.id}}">Remove</a>
-                            {% endif %}
+                        <td>{{user.first_name}} 
+                        </td>
+                                    <td>{{user.workout.type}}</td>
+                                    <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
+                                    <td>
+                                        {% if user.id != session['user_id'] %}
+                                        <a href="/addfriend/{{user.id}}">Add Friend</a>
+                                        {% endif %}
+                                        {% if user.workout.user_id == session.user_id %}
+                                        <a href="/edit_workout/{{user.workout.id}}">Edit</a>
+                                        <a href="/delete_workout/{{user.workout.id}}">Remove</a>
+                                        {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
