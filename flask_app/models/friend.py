@@ -1,4 +1,3 @@
-from sqlite3 import Row
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import user, workout, friend
@@ -33,12 +32,13 @@ class Friend:
         return friends
 
     @classmethod
-
     def get_one_user_friends(cls, data):
-        query = 'SELECT * FROM user JOIN friendship ON user.id=friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id where friendship.user_id = %(id)s'
-        # query = 'select freindship.* from user join friendship on user.id = friendship.user_id where user.id = %(id)s'
+        query = 'SELECT user.first_name, user.last_name, user2.first_name as friend_first_name, user2.last_name as friend_last_name FROM user JOIN friendship ON user.id = friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id WHERE user_id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query,data)
-        friends = []
-        for row in results:
-            friends.append(user.User(row))
-        return friends
+        return results
+      
+    @classmethod
+    def num_friends(cls,data):
+      query = 'SELECT user.first_name, user.last_name, count(user.id) as num from friendship JOIN user on user.id = friendship.user_id WHERE user_id = %(id)s;'
+      results = connectToMySQL(cls.db).query_db(query,data)
+      return results

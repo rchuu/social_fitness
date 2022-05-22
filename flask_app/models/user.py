@@ -40,6 +40,8 @@ class User:
             user=cls(row)
             user.workout = Workout.get_workout_id({"id":row['workout.id']})
             users.append(user)
+        if len(results) < 1:
+            return False
         return users
 
     @classmethod

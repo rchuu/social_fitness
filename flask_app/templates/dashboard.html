@@ -70,13 +70,19 @@
                 <tbody>
                     {% for user in users %}
                     <tr>
-JBstuff
+
                         <td>{{user.first_name}} 
                         </td>
                                     <td>{{user.workout.type}}</td>
+                                    {% if user.workout.date %}
                                     <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
+                                    {% else  %}
+                                    <td></td>
+                                    {% endif %}
+                                    
                                     <td>
                                         {% if user.id != session['user_id'] %}
+                                        <!-- add if statement to remove if they are a friend here  -->
                                         <a href="/addfriend/{{user.id}}">Add Friend</a>
                                         {% endif %}
                                         {% if user.workout.user_id == session.user_id %}
