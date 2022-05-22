@@ -67,11 +67,11 @@
                 <tbody>
                     {% for user in users %}
                     <tr>
-                        <td>{{user.first_name}} 
-                        </td>
+                        <td>{{user.first_name}}</td>
                                     <td>{{user.workout.type}}</td>
                                     <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
                                     <td>
+                                        <a href="/view/workout/{{user.workout.id}}">view workout</a>
                                         {% if user.id != session['user_id'] %}
                                         <a href="/addfriend/{{user.id}}">Add Friend</a>
                                         {% endif %}
