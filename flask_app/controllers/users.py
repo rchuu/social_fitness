@@ -23,9 +23,11 @@ def register():
         "last_name": request.form['last_name'],
         "email": request.form["email"],
         "password": password,
-        'user_id': session['user_id']
     }
     id = User.save(data)
+    if not id:
+      flash("Email already taken, please login")
+      return redirect('/')
     session['user_id'] = id
     return redirect('/dashboard')
 
@@ -40,7 +42,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/log_in', methods=['post'])
+@app.route('/log_in', methods=['POST'])
 def login_():
     user = User.get_from_email(request.form)
     if not user:
@@ -62,11 +64,10 @@ def dashboard():
     }
 
     # everything = User.userfriendworkouts()
-    workouts = Workout.get_all_workouts()
+    # workouts = Workout.get_all_workouts()
     users = User.get_all()
-JBstuff
     friends = Friend.get_all_friends()
-    return render_template('dashboard.html',user=User.get_from_id(data), workouts = workouts, users = users, friends = friends)
+    return render_template('dashboard.html',user=User.get_from_id(data), users = users, friends = friends)
 
 
 @app.route('/profile')
@@ -78,7 +79,9 @@ def profile():
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
     user=User.get_from_id(data)
-    return render_template('view_profile.html', user_workouts = user_workouts, user = user)
+    friend = Friend.get_one_user_friends(data)
+    num = Friend.num_friends(data)
+    return render_template('view_profile.html', user_workouts = user_workouts, user = user, friend = friend, num = num)
 
 
 @app.route('/logout')

@@ -144,14 +144,21 @@
                         </div>
                         <div class="card">
                             <div class="header">
-                                <span class="friends">#+</span>
+                                <span class="friends">
+                                  {% for n in num %}
+                                    {{n.num}}
+                                  {% endfor %}
+                                </span>
                                 Friends
                             </div>
                             <div class="user-line">
                                 <span class="start">
                                     <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>User Name</span>
-                                </span>
+                                    {% for f in friend %}
+                                    <span>{{f.friend_first_name}}</span>
+                                    {% endfor %}
+                                    
+                                </span> 
                             </div>
                             <!-- <div class="footer">
                             <a href="#">View More</a>
