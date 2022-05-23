@@ -55,23 +55,24 @@
             </div>
         </nav>
         <main>
-            <div class="col-4 mx-auto py-5 d-flex justify-content-center flex-column">
+            <div class="col-6 mx-auto py-5 d-flex justify-content-center flex-column">
                 >
-                <h2 class="text-light my-5 mx-5">View Workout</h2>
                 <div class="card">
-                    <div class="card-header bg-dark text-light">Workout Type:</div>
+                    <h2 class="my-5 mx-5 text-center">View Workout</h2>
+
+                    <div class="card-title bg-dark text-light">Workout Type:</div>
                     <div class="card-body">{{workout.type}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Description:</div>
+                    <!-- </div> -->
+                    <!-- <div class="card"> -->
+                    <div class="card-title bg-dark text-light">Description:</div>
                     <div class="card-body">{{workout.description}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Length(minutes):</div>
+                    <!-- </div>
+                <div class="card"> -->
+                    <div class="card-title bg-dark text-light">Length(minutes):</div>
                     <div class="card-body">{{workout.length}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Date of Workout:</div>
+                    <!-- </div>
+                <div class="card"> -->
+                    <div class="card-title bg-dark text-light">Date of Workout:</div>
                     <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
                 </div>
             </div>
