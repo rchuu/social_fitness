@@ -33,7 +33,7 @@ class Friend:
 
     @classmethod
     def get_one_user_friends(cls, data):
-        query = 'SELECT user.first_name, user.last_name, user2.first_name as friend_first_name, user2.last_name as friend_last_name FROM user JOIN friendship ON user.id = friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id WHERE user_id = %(id)s;'
+        query = 'SELECT user.first_name, user.last_name, user2.id as friend_id, user2.first_name as friend_first_name, user2.last_name as friend_last_name FROM user JOIN friendship ON user.id = friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id WHERE user_id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query,data)
         return results
       

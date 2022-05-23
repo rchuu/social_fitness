@@ -32,7 +32,7 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}}{{user.last_name}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -111,6 +111,8 @@
                     </div>
 
                     <!-- right column -->
+                    {% if user.id == session['user_id'] %}
+                    <!-- add if statement to remove if they are a friend here  -->
                     <div class="col">
                         <div class="card">
                             <div class="header">
@@ -142,6 +144,7 @@
                                 </span>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="card">
                             <div class="header">
                                 <span class="friends">
@@ -155,7 +158,7 @@
                                 <span class="start">
                                     <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
                                     {% for f in friend %}
-                                    <span>{{f.friend_first_name}}</span>
+                                    <div>{{f.friend_first_name}} <a href="/friend_profile/{{f.friend_id}}">View Profile</a></div>
                                     {% endfor %}
 
                                 </span>
