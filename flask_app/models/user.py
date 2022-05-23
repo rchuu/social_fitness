@@ -1,3 +1,4 @@
+from sqlite3 import connect
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 import re
@@ -11,12 +12,19 @@ class User:
 
     def __init__(self, data):
         self.id = data['id']
+        self.image_path = data['image_path']
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+
+    @classmethod
+    def create_img(cls, data):
+        query = 'UPDATE user SET image_path = %(image_path)s WHERE id = %(id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
 
     @classmethod
     def get_one(cls, data):
@@ -37,8 +45,8 @@ class User:
         results = connectToMySQL(cls.db).query_db(query)
         users = []
         for row in results:
-            user=cls(row)
-            user.workout = Workout.get_workout_id({"id":row['workout.id']})
+            user = cls(row)
+            user.workout = Workout.get_workout_id({"id": row['workout.id']})
             users.append(user)
         if len(results) < 1:
             return False
@@ -76,7 +84,7 @@ class User:
         user = cls(result[0])
         user.friends = []
         for f in result:
-            friend = cls.get_from_id({'id':f['friendship.friend_id']})
+            friend = cls.get_from_id({'id': f['friendship.friend_id']})
 
             workoutdata = {
                 'id': f['id'],
@@ -92,9 +100,6 @@ class User:
             friend.workout = Workout(workoutdata)
             user.friends.append(friend)
         return user
-
-
-
 
     @staticmethod
     def validate_register(user):
