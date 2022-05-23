@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        <title>Document</title>
+        <title>Profile</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
@@ -32,7 +32,8 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}}{{user.last_name}}</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello,
+                            {{user.first_name}}{{user.last_name}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -59,7 +60,11 @@
                     <div class="col">
                         <div class="card-body">
                             <div class="card-title">
-                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m">
+                                <!-- <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m"> -->
+                                <form action="/post/image" method=post enctype=multipart/form-data>
+                                    <input type=file name=file>
+                                    <input type=submit value=Upload>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <h1>{{user.first_name}} {{user.last_name}}'s Profile</h1>
@@ -158,7 +163,8 @@
                                 <span class="start">
                                     <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
                                     {% for f in friend %}
-                                    <div>{{f.friend_first_name}} <a href="/friend_profile/{{f.friend_id}}">View Profile</a></div>
+                                    <div>{{f.friend_first_name}} <a href="/friend_profile/{{f.friend_id}}">View
+                                            Profile</a></div>
                                     {% endfor %}
 
                                 </span>

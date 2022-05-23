@@ -5,15 +5,49 @@ from flask_app.models.workout import Workout
 from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
+# --uploading image syntax start
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = '/Users/richardchu/Documents/codingdojo/group_project/social_fitness/flask_app/static/img'
+ALLOWED_EXTENSIONS = set('txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/post/image', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect('/dashboard')
+
+
+# --uploading image syntax end
 bcrypt = Bcrypt(app)
 
 
-@app.route('/registration')
+@ app.route('/registration')
 def registration():
     return render_template("registration.html")
 
 
-@app.route('/register', methods=['POST'])
+@ app.route('/register', methods=['POST'])
 def register():
     if not User.validate_register(request.form):
         return redirect('/registration')
@@ -26,23 +60,23 @@ def register():
     }
     id = User.save(data)
     if not id:
-      flash("Email already taken, please login")
-      return redirect('/')
+        flash("Email already taken, please login")
+        return redirect('/')
     session['user_id'] = id
     return redirect('/dashboard')
 
 
-@app.route('/')
+@ app.route('/')
 def index():
     return render_template("index.html")
 
 
-@app.route('/login')
+@ app.route('/login')
 def login():
     return render_template("login.html")
 
 
-@app.route('/log_in', methods=['POST'])
+@ app.route('/log_in', methods=['POST'])
 def login_():
     user = User.get_from_email(request.form)
     if not user:
@@ -55,7 +89,7 @@ def login_():
     return redirect('/dashboard')
 
 
-@app.route('/dashboard')
+@ app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
         return redirect('/logout')
@@ -67,10 +101,10 @@ def dashboard():
     # workouts = Workout.get_all_workouts()
     users = User.get_all()
     friends = Friend.get_all_friends()
-    return render_template('dashboard.html',user=User.get_from_id(data), users = users, friends = friends)
+    return render_template('dashboard.html', user=User.get_from_id(data), users=users, friends=friends)
 
 
-@app.route('/profile')
+@ app.route('/profile')
 def profile():
     if 'user_id' not in session:
         return redirect('/logout')
@@ -78,17 +112,13 @@ def profile():
         'id': session['user_id'],
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
-    user=User.get_from_id(data)
+    user = User.get_from_id(data)
     friend = Friend.get_one_user_friends(data)
     num = Friend.num_friends(data)
-    return render_template('view_profile.html', user_workouts = user_workouts, user = user, friend = friend, num = num)
+    return render_template('view_profile.html', user_workouts=user_workouts, user=user, friend=friend, num=num)
 
 
-@app.route('/logout')
+@ app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
-
-
-
-
