@@ -1,10 +1,13 @@
+from telnetlib import STATUS
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
+from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
 bcrypt = Bcrypt(app)
+
 
 @app.route('/registration')
 def registration():
@@ -20,9 +23,12 @@ def register():
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form["email"],
-        "password": password
+        "password": password,
     }
     id = User.save(data)
+    if not id:
+      flash("Email already taken, please login")
+      return redirect('/')
     session['user_id'] = id
     return redirect('/dashboard')
 
@@ -37,13 +43,13 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/log_in', methods=['post'])
+@app.route('/log_in', methods=['POST'])
 def login_():
     user = User.get_from_email(request.form)
     if not user:
         flash("EMAIL address not registered", "login")
         return redirect('/login')
-    if not bcrypt.check_password_hash( user.password, request.form['password']):
+    if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash("INVALID PASSWORD!!", "login")
         return redirect('/login')
     session['user_id'] = user.id
@@ -59,10 +65,10 @@ def dashboard():
     }
 
     # everything = User.userfriendworkouts()
-    workouts = Workout.get_all_workouts()
+    # workouts = Workout.get_all_workouts()
     users = User.get_all()
     friends = Friend.get_all_friends()
-    return render_template('dashboard.html',user=User.get_from_id(data), workouts = workouts, users = users, friends = friends)
+    return render_template('dashboard.html',user=User.get_from_id(data), users = users, friends = friends)
 
 
 @app.route('/profile')
@@ -70,10 +76,15 @@ def profile():
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
-        'id': session['user_id']
+        'id': session['user_id'],
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
-    return render_template('view_profile.html', user_workouts = user_workouts)
+    user=User.get_from_id(data)
+    friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    num = Friend.num_friends(data)
+    return render_template('view_profile.html', user_workouts = user_workouts, user = user, friend = friend, num = num, pending = pending_friends, approved = approved_friends)
 
 
 @app.route('/logout')
@@ -86,10 +97,31 @@ def addfriend(id):
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
+        'status' : 'status',
         'user_id' : session['user_id'],
         'friend_id': id
     }
     Friend.add_friend(data)
     return redirect('/dashboard')
 
+@app.route('/addfriend/accept/<int:id>')
+def accept_friend(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = {
+        'user_id':session['user_id'],
+        'friend_id':id
+    }
+    Friend.approved_friend(data)
+    return redirect('/profile')
 
+@app.route('/addfriend/decline/<int:id>')
+def decline_friend(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = {
+        'user_id':session['user_id'],
+        'friend_id':id
+    }
+    Friend.decline_friend(data)
+    return redirect('/profile')
