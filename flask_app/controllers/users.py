@@ -89,15 +89,6 @@ def logout():
     session.clear()
     return redirect('/')
 
-@app.route('/addfriend/<int:id>')
-def addfriend(id):
-    if 'user_id' not in session:
-        return redirect('/logout')
-    data = {
-        'user_id' : session['user_id'],
-        'friend_id': id
-    }
-    Friend.add_friend(data)
-    return redirect('/dashboard')
+
 
 
