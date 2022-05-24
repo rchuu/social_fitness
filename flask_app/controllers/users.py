@@ -38,10 +38,6 @@ def upload_file():
             data = {
                 'id': session["user_id"],
                 'image_path': "../static/img/" + filename,
-                # 'first_name': request.form["first_name"],
-                # 'last_name': request.form["last_name"],
-                # 'email': request.form["email"],
-                # 'user_id': session["user_id"]
             }
             User.create_img(data)
         return redirect('/profile')

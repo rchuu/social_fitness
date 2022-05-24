@@ -56,8 +56,7 @@
                 </div>
             </div>
         </nav>
-        <div
-            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
+        <div class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center">
             <table class="table table-hover table-light table-responsive form-control-md table-striped">
                 <thead>
                     <tr>
@@ -70,16 +69,13 @@
                 <tbody>
                     {% for user in users %}
                     <tr>
-
-                        <td>{{user.first_name}}
-                        </td>
+                        <td>{{user.first_name}}</td>
                         <td>{{user.workout.type}}</td>
                         {% if user.workout.date %}
                         <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
                         {% else %}
                         <td></td>
                         {% endif %}
-
                         <td>
                             {% if user.id != session['user_id'] %}
                             <!-- add if statement to remove if they are a friend here  -->
