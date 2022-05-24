@@ -19,6 +19,13 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
+
+    @classmethod
+    def create_img(cls, data):
+        query = 'UPDATE user SET image_path = %(image_path)s WHERE id = %(id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
     @classmethod
     def get_one(cls, data):
         query = "SELECT * FROM user WHERE id = %(id)s;"

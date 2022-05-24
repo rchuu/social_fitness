@@ -36,15 +36,18 @@ def accept_friend(id):
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
-        'user_id':session['user_id'],
-        'friend_id':id
+        'user_id':id,
+        'friend_id':session['user_id']
     }
+    print(data)
+
     Friend.approved_friend(data)
     new_data = {
         'user_id' : session['user_id'],
         'friend_id': id,
         'requested_by': id
     }
+    print(data)
     Friend.add_approved_friend(new_data)
     return redirect('/profile')
 
