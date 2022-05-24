@@ -1,191 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        <title>Document</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-            </script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+</head>
 
-    <body id="background-img3">
-        <script src="scripts.js"></script>
+<body id="background-img3">
+    <script src="scripts.js"></script>
 
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" id="logo-img" href="/dashboard"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/add">Add Workout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/logout">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="logo-img" href="/dashboard"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}}{{user.last_name}}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add">Add Workout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <main>
-            <div class="container">
-                <div class="row">
-                    <!-- left column -->
-                    <div class="col">
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- left column -->
+                <div class="col">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m">
+                        </div>
                         <div class="card-body">
-                            <div class="card-title">
-                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m">
-                            </div>
-                            <div class="card-body">
-                                <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
-                                <h3>Social Fitness Life</h3>
-                                <p>Athlete | Weight Loss | Strength</p>
-                                <!-- <p>
+                            <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
+                            <h3>Social Fitness Life</h3>
+                            <p>Athlete | Weight Loss | Strength</p>
+                            <!-- <p>
                                 <a href="/edit_workout/">
                                     <img src="../img/gear.png" alt="gear" class="icon-s">
                                     Edit Workout
                                 </a>
                             </p> -->
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="card">
-                            <div class="header">
-                                All Workouts
-                            </div>
-                            <table class="table table-hover table-light table-responsive form-control-md">
-                                <thead>
-                                    <tr>
-                                        <th>Workout</th>
-                                        <th>Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    <div class="card">
+                        <div class="header">
+                            All Workouts
+                        </div>
+                        <table class="table table-hover table-light table-responsive form-control-md">
+                            <thead>
+                                <tr>
+                                    <th>Workout</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                    {% for workout in user_workouts %}
-                                    <tr>
-                                        <!-- {% for user in users %}
+                                {% for workout in user_workouts %}
+                                <tr>
+                                    <!-- {% for user in users %}
                                     {% if user.id == workout.user_id %}
                                     <td>{{user.first_name}}</td>
                                     {% endif %}
                                     {% endfor %} -->
-                                        <td>{{workout.type}}</td>
-                                        <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
-                                        <td>
-                                            <a href="/view/workout/{{workout.id}}">View</a>
-                                            <a href="/edit_workout/{{workout.id}}">Edit</a>
-                                            <a href="/delete_workout/{{workout.id}}">Remove</a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
+                                    <td>{{workout.type}}</td>
+                                    <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
+                                    <td>
+                                        <a href="/view/workout/{{workout.id}}">View</a>
+                                        <a href="/edit_workout/{{workout.id}}">Edit</a>
+                                        <a href="/delete_workout/{{workout.id}}">Remove</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- right column -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="header">
-                                <span class="friends">{{pending|length}}</span>
-                                Friend Requests
-                            </div>
-                            {% if pending %}
-                            {% for friend in pending %}
-                            <div class="user-line">
-                                <span class="start">
-                                    
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>{{friend.first_name}} {{friend.last_name}}</span>
-                                </span>
-                                <span class="end">
-                                    <div>
-                                        <a href="/addfriend/accept/{{friend.id}}">accept</a>
-                                        <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
-                                    </div>
-                                    <a href="/addfriend/decline/{{friend.id}}">decline</a>
-                                    <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
-                                </span>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="user-line">
-                                <span class="start">
-                                    
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>No friend requests!! go make some </span>
-                                </span>
-                                
-                            </div>
-                            {% endif %}
+                </div>
+
+                <!-- right column -->
+                <div class="col">
+                    <div class="card">
+                        <div class="header">
+                            <span class="friends">{{pending|length}}</span>
+                            Friend Requests
                         </div>
-                        <div class="card">
-                            <div class="header">
-                                <span class="friends">{{approved|length}}</span>
-                                Friendu
-                            </div>
-                            {% if approved %}
-                            {% for friend in approved %}
-                            <div class="user-line">
-                                <span class="start">
-                                    
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>{{friend.first_name}} {{friend.last_name}}</span>
-                                </span>
-                                <span class="end">
-                                    <div>
-                                        <a href="/addfriend/accept/{{friend.user_id}}">accept</a>
-                                        <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
-                                    </div>
-                                    <a href="/addfriend/decline/{{friend.user_id}}">decline</a>
-                                    <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
-                                </span>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="user-line">
-                                <span class="start">
-                                    
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>No friends :( why so lonely </span>
-                                    <span>you gonna die alone</span>
-                                </span>
-                                
-                            </div>
-                            {% endif %}
+                        {% if pending %}
+                        {% for friend in pending %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>{{friend.first_name}} {{friend.last_name}}</span>
+                            </span>
+                            <span class="end">
+                                <div>
+                                    <a href="/addfriend/accept/{{friend.id}}">accept</a>
+                                    <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
+                                </div>
+                                <a href="/addfriend/decline/{{friend.id}}">decline</a>
+                                <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
+                            </span>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friend requests!! go make some </span>
+                            </span>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="friends">{{request_friends|length}}</span>
+                            Requests Sent
+                        </div>
+                        {% if request_friends %}
+                        {% for friend in request_friends %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>{{friend.first_name}} {{friend.last_name}}</span>
+                            </span>
+
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friend requests!! go make some </span>
+                            </span>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="friends">{{approved|length}}</span>
+                            Friends
+                        </div>
+                        {% if approved %}
+                        {% for friend in approved %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>{{friend.first_name}} {{friend.last_name}}</span>
+                            </span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friends :( why so lonely </span>
+                                <span>you gonna die alone</span>
+                            </span>
+
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    </main>
 
-    </body>
+</body>
 
 </html>

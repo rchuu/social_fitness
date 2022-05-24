@@ -13,12 +13,19 @@ class Friend:
         self.updated_at=data['updated_at']
         self.user_id=data['user_id']
         self.friend_id=data['friend_id']
+        self.requested_by = data['requested_by']
 
 
 
     @classmethod
     def add_friend(cls,data):
-        query = 'insert into friendship (user_id, friend_id) values (%(user_id)s, %(friend_id)s)'
+        query = 'insert into friendship (user_id, friend_id, requested_by) values (%(user_id)s, %(friend_id)s, %(requested_by)s)'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
+    @classmethod
+    def add_approved_friend(cls,data):
+        query = 'insert into friendship (user_id, friend_id, requested_by, status) values (%(user_id)s, %(friend_id)s, %(requested_by)s, "APPROVED");'
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
@@ -33,7 +40,7 @@ class Friend:
 
     @classmethod
     def get_one_user_friends(cls, data):
-        query = 'SELECT user.first_name, user.last_name, user2.first_name as friend_first_name, user2.last_name as friend_last_name FROM user JOIN friendship ON user.id = friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id WHERE user_id = %(id)s;'
+        query = 'SELECT user.first_name, user.last_name, user2.id as friend_id, user2.first_name as friend_first_name, user2.last_name as friend_last_name FROM user JOIN friendship ON user.id = friendship.user_id LEFT JOIN user as user2 ON user2.id = friendship.friend_id WHERE user_id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query,data)
         return results
 
@@ -51,7 +58,7 @@ class Friend:
 
     @classmethod
     def get_approved_friends(cls,data):
-        query = "select user.*, friendship.id from user join friendship on user.id = friendship.friend_id where friendship.user_id = %(id)s and friendship.status = 'APPROVED'"
+        query = "select u2.*, f.id from user u left join friendship f on u.id = f.user_id join user u2 on f.friend_id = u2.id where f.user_id = %(id)s and f.status = 'APPROVED';"
         results = connectToMySQL(cls.db).query_db(query, data)
         friends = []
         if not results:
@@ -63,15 +70,28 @@ class Friend:
         return friends
 
     @classmethod
-    def get_pending_friends(cls,data):
-        query = "select user.*, friendship.id from user join friendship on user.id = friendship.friend_id where friendship.user_id = %(id)s and friendship.status = 'PENDING'"
+    def get_request_friends(cls,data):
+        query = "select u2.*, f.id from user u left join friendship f on u.id = f.user_id join user u2 on f.friend_id = u2.id where u.id = %(id)s and requested_by = %(id)s AND f.status = 'PENDING';"
         results = connectToMySQL(cls.db).query_db(query, data)
         friends = []
         if not results:
             return friends
         for row in results:
             one_friend = user.User(row)
-            one_friend.friendship_id = row['friendship.id']
+            one_friend.friendship_id = row['f.id']
+            friends.append(one_friend)
+        return friends
+
+    @classmethod
+    def get_pending_friends(cls,data):
+        query = "select u.*, f.id from user u left join friendship f on u.id = f.user_id join user u2 on f.friend_id = u2.id where f.friend_id= %(id)s and f.status = 'PENDING';"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        friends = []
+        if not results:
+            return friends
+        for row in results:
+            one_friend = user.User(row)
+            one_friend.friendship_id = row['f.id']
             friends.append(one_friend)
         return friends
 
