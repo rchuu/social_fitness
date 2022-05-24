@@ -5,6 +5,8 @@ from flask_app.models.workout import Workout
 from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
+
+
 # --uploading image syntax start
 import os
 from werkzeug.utils import secure_filename
@@ -42,8 +44,9 @@ def upload_file():
             User.create_img(data)
         return redirect('/profile')
 
-
 # --uploading image syntax end
+
+
 bcrypt = Bcrypt(app)
 
 
