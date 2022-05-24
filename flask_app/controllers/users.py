@@ -1,4 +1,3 @@
-from telnetlib import STATUS
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
@@ -107,7 +106,6 @@ def dashboard():
     # workouts = Workout.get_all_workouts()
     users = User.get_all()
     friends = Friend.get_all_friends()
-    # return render_template('dashboard.html', user=User.get_from_id(data), users=users, friends=friends)
     return render_template('dashboard.html', loggin_user=User.get_from_id(data), users=users, friends=friends)
 
 

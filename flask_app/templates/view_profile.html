@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        <title>Profile</title>
+        <title>Document</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
@@ -33,7 +33,8 @@
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello,
-                            {{user.first_name}}{{user.last_name}}</h5>
+                            {{user.first_name}}{{user.last_name}}
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -52,6 +53,7 @@
                 </div>
             </div>
         </nav>
+
         <main>
             <div class="container">
                 <div class="row">
@@ -59,18 +61,12 @@
                     <div class="col">
                         <div class="card-body">
                             <div class="card-title">
-                                <!-- <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m"> -->
-                                <img src="{{user.image_path}}" alt="" class="avatar-m">
-                                <form action="/post/image" method=post enctype=multipart/form-data>
-                                    <input type=file name=file>
-                                    <input type=submit value=Upload>
-                                </form>
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m">
                             </div>
                             <div class="card-body">
-                                <h1>{{user.first_name}} {{user.last_name}}'s Profile</h1>
+                                <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
                                 <h3>Social Fitness Life</h3>
                                 <p>Athlete | Weight Loss | Strength</p>
-                                <br>
                                 <!-- <p>
                                 <a href="/edit_workout/">
                                     <img src="../img/gear.png" alt="gear" class="icon-s">
@@ -90,18 +86,12 @@
                                         <th>Workout</th>
                                         <th>Date</th>
                                         <th>Actions</th>
-                                        <th>Likes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     {% for workout in user_workouts %}
                                     <tr>
-                                        <!-- {% for user in users %}
-                                    {% if user.id == workout.user_id %}
-                                    <td>{{user.first_name}}</td>
-                                    {% endif %}
-                                    {% endfor %} -->
                                         <td>{{workout.type}}</td>
                                         <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
                                         <td>
@@ -119,69 +109,74 @@
                                 </tbody>
                             </table>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
 
-                    </div>
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friend requests!! go make some </span>
+                            </span>
 
-                    <!-- right column -->
-                    {% if user.id == session['user_id'] %}
-                    <!-- add if statement to remove if they are a friend here  -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="header">
-                                <span class="friends">total#connections here</span>
-                                Friend Requests
-                            </div>
-                            <div class="user-line">
-                                <span class="start">
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>Friend Name here</span>
-                                </span>
-                                <span class="end">
-                                    <div>
-                                        <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
-                                    </div>
-                                    <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
-                                </span>
-                            </div>
-                            <div class="user-line">
-                                <span class="start">
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    <span>Friend Name here</span>
-                                </span>
-                                <span class="end">
-                                    <div>
-                                        <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
-                                    </div>
-                                    <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
-                                </span>
-                            </div>
                         </div>
                         {% endif %}
-                        <div class="card">
-                            <div class="header">
-                                <span class="friends">
-                                    {% for n in num %}
-                                    {{n.num}}
-                                    {% endfor %}
-                                </span>
-                                Friends
-                            </div>
-                            <div class="user-line">
-                                <span class="start">
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                    {% for f in friend %}
-                                    <div>{{f.friend_first_name}} <a href="/friend_profile/{{f.friend_id}}">View
-                                            Profile</a></div>
-                                    {% endfor %}
-
-                                </span>
-                            </div>
-                            <!-- <div class="footer">
-                            <a href="#">View More</a>
-                        </div> -->
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="friends">{{request_friends|length}}</span>
+                            Requests Sent
                         </div>
+                        {% if request_friends %}
+                        {% for friend in request_friends %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>{{friend.first_name}} {{friend.last_name}}</span>
+                            </span>
+
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friend requests!! go make some </span>
+                            </span>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="friends">{{approved|length}}</span>
+                            Friends
+                        </div>
+                        {% if approved %}
+                        {% for friend in approved %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>{{friend.first_name}} {{friend.last_name}}</span>
+                            </span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="user-line">
+                            <span class="start">
+
+                                <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                <span>No friends :( why so lonely </span>
+                                <span>you gonna die alone</span>
+                            </span>
+
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
             </div>
         </main>
 
