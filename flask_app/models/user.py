@@ -1,4 +1,3 @@
-from sqlite3 import connect
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 import re
@@ -46,11 +45,34 @@ class User:
         users = []
         for row in results:
             user = cls(row)
+            user.friends = cls.get_one_user_friend({"id": row['user_id']})
             user.workout = Workout.get_workout_id({"id": row['workout.id']})
             users.append(user)
         if len(results) < 1:
             return False
         return users
+
+    @classmethod
+    def get_all_user_friends(cls):
+        query = 'select * from user join friendship on user.id = friendship.user_id'
+        results = connectToMySQL(cls.db).query_db(query)
+        usefriends = []
+        for row in results:
+            user = cls(row)
+            user.friends = cls.get_one_user_friend({"id": row["user.id"]})
+            usefriends.append(user)
+        return usefriends
+
+    @classmethod
+    def get_one_user_friend(cls, data):
+        query = ' select user.*, friendship.id from user join friendship on user.id = friendship.friend_id where user_id = %(id)s'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        friends = []
+        for row in results:
+            one_friend = cls(row)
+            one_friend.friendship_id = row['friendship.id']
+            friends.append(one_friend)
+        return friends
 
     @classmethod
     def get_from_id(cls, data):

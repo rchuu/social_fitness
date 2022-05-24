@@ -68,6 +68,11 @@
     object-fit: scale-down;
 }
 
+#like_button {
+    content: url("../img/thumb.png");
+    height: 2px;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -90,6 +90,7 @@
                                         <th>Workout</th>
                                         <th>Date</th>
                                         <th>Actions</th>
+                                        <th>Likes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,6 +108,11 @@
                                             <a href="/view/workout/{{workout.id}}">View</a>
                                             <a href="/edit_workout/{{workout.id}}">Edit</a>
                                             <a href="/delete_workout/{{workout.id}}">Remove</a>
+                                        </td>
+                                        <td>
+                                            <span id="likeMe">0 like(s)</span>
+                                            <button id="avatar-s" onclick="like(0)"><img
+                                                    src="../static/img/hand-thumbs-up-fill.svg"></button>
                                         </td>
                                     </tr>
                                     {% endfor %}
