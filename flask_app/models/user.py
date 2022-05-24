@@ -26,6 +26,12 @@ class User:
         return results
 
     @classmethod
+    def create_img(cls, data):
+        query = 'UPDATE user SET image_path = %(image_path)s WHERE id = %(id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return results
+
+    @classmethod
     def get_one(cls, data):
         query = "SELECT * FROM user WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
@@ -141,7 +147,7 @@ class User:
     @staticmethod
     def validate_register(user):
         is_valid = True
-        query = ' SELECT * FROM user WHERE email = %(email)s;'
+        query = 'SELECT * FROM user WHERE email = %(email)s;'
         results = connectToMySQL(User.db).query_db(query, user)
         if len(results) >= 1:  # to check if email has been taken
             flash("Sorry, email has been taken", "register")
