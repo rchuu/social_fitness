@@ -8,6 +8,41 @@ from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
 bcrypt = Bcrypt(app)
 
+# --uploading image syntax start
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = '../social_fitness/flask_app/static/img'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/post/image', methods=['GET', 'POST'])
+def upload_file():    
+    if request.method == 'POST':
+    # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect('/')
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect('/')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            data = {
+                'id': session["user_id"],
+                'image_path': "../static/img/" + filename,
+            }
+            User.create_img(data)
+        return redirect('/profile')# --uploading image syntax end
+
 
 @app.route('/registration')
 def registration():
