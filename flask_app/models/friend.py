@@ -65,7 +65,7 @@ class Friend:
             return friends
         for row in results:
             one_friend = user.User(row)
-            one_friend.friendship_id = row['friendship.id']
+            one_friend.friendship_id = row['f.id']
             friends.append(one_friend)
         return friends
 
