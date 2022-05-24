@@ -1,102 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        <title>Document</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-            crossorigin="anonymous"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+</head>
 
-    <body id="background-img1">
-        <script src="scripts.js"></script>
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" id="logo-img" href="#"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
+<body id="background-img1">
+    <script src="scripts.js"></script>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="logo-img" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
 
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{user.first_name}}
-                            {{user.last_name}}</h5>
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello, {{loggin_user.first_name}}
+                        {{loggin_user.last_name}}</h5>
 
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/profile">My Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/add">Add Workout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/logout">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add">Add Workout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </nav>
-        <div
-            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
-            <table class="table table-hover table-light table-responsive form-control-md table-striped">
-                <thead>
-                    <tr>
-                        <th>Friend</th>
-                        <th>Workout</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
-
-                        <td>{{user.first_name}} 
-                        </td>
-                                    <td>{{user.workout.type}}</td>
-                                    {% if user.workout.date %}
+        </div>
+    </nav>
+    <div
+        class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
+        <table class="table table-hover table-light table-responsive form-control-md table-striped">
+            <thead>
+                <tr>
+                    <th>Friend</th>
+                    <th>Workout</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    
+                    
+                    <td>{{user.first_name}} 
+                    </td>
+                                <td>{{user.workout.type}}</td>
+                                {% if user.workout.date %}
                                     <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
-                                    {% else  %}
+                                {% else  %}
                                     <td></td>
+                                {% endif %}
+                                
+                                <td>
+
+
+                                    {% if user.workout.id == "" %}
+                                        <a href="/view/workout/{{user.workout.id}}">view workout</a>
                                     {% endif %}
-                                    
-                                    <td>
-                                        {% if user.id != session['user_id'] %}
+                                    {% if user.id != session['user_id'] %}
+                                        {% if user.id not in loggin_user.friends|map(attribute="id") %}
+                                        {% if user.id not in loggin_user.friends_requests|map(attribute = "id") %}
+                                        <!-- # or user.id friend.requested -->
                                         <!-- add if statement to remove if they are a friend here  -->
                                         <a href="/addfriend/{{user.id}}">Add Friend</a>
                                         {% endif %}
-                                        {% if user.workout.user_id == session.user_id %}
-                                        <a href="/edit_workout/{{user.workout.id}}">Edit</a>
-                                        <a href="/delete_workout/{{user.workout.id}}">Remove</a>
                                         {% endif %}
+                                        
+                                    {% endif %}
+                                    
 
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                                    {% if user.workout.user_id == session.user_id %}
+                                    <a href="/edit_workout/{{user.workout.id}}">Edit</a>
+                                    <a href="/delete_workout/{{user.workout.id}}">Remove</a>
+                                    {% endif %}
 
-    </body>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
 
 </html>
