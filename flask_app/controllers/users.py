@@ -1,3 +1,4 @@
+from telnetlib import STATUS
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
@@ -106,7 +107,8 @@ def dashboard():
     # workouts = Workout.get_all_workouts()
     users = User.get_all()
     friends = Friend.get_all_friends()
-    return render_template('dashboard.html', user=User.get_from_id(data), users=users, friends=friends)
+    # return render_template('dashboard.html', user=User.get_from_id(data), users=users, friends=friends)
+    return render_template('dashboard.html', loggin_user=User.get_from_id(data), users=users, friends=friends)
 
 
 @ app.route('/profile')
@@ -114,13 +116,16 @@ def profile():
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
-        'id': session['user_id'],
+        'id': session['user_id']
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
     user = User.get_from_id(data)
     friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    request_friends = Friend.get_request_friends(data)
     num = Friend.num_friends(data)
-    return render_template('view_profile.html', user_workouts=user_workouts, user=user, friend=friend, num=num)
+    return render_template('view_profile.html', user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
 
 
 @ app.route('/logout')
