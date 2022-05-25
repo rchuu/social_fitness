@@ -8,45 +8,11 @@ from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
 
+# --spotify stuff
 
-# --uploading image syntax start
-# import os
-# from werkzeug.utils import secure_filename
-
-# UPLOAD_FOLDER = '/Users/richardchu/Documents/codingdojo/group_project/social_fitness/flask_app/static/img'
-# ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-# def allowed_file(filename):
-#     return '.' in filename and \
-#         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-# @app.route('/post/image', methods=['GET', 'POST'])
-# def upload_file():
-#     if request.method == 'POST':
-#         # check if the post request has the file part
-#         if 'file' not in request.files:
-#             flash('No file part')
-#             return redirect('/')
-#         file = request.files['file']
-#         # if user does not select file, browser also
-#         # submit an empty part without filename
-#         if file.filename == '':
-#             flash('No selected file')
-#             return redirect('/')
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#             data = {
-#                 'id': session["user_id"],
-#                 'image_path': "../static/img/" + filename,
-#             }
-#             User.create_img(data)
-#         return redirect('/profile')
-
-# --uploading image syntax end
+import requests
+import spotipy
+from spotipy import SpotifyClientCredentials
 
 
 bcrypt = Bcrypt(app)
@@ -84,15 +50,51 @@ def upload_file():
                 'image_path': "../static/img/" + filename,
             }
             User.create_img(data)
-        return redirect('/profile')  # --uploading image syntax end
+        return redirect('/profile')
+
+# --uploading image syntax end
+
+# --spotify syntax start
 
 
-@ app.route('/registration')
+@app.route("/search/new")
+def search_form():
+    return redirect("/profile")
+
+
+@app.route("/search", methods=['POST'])
+def search():
+    search_term = request.form['search_term']
+    cid = '0a4c36fea33d439cb53856de91e923e5'
+    secret = '2710be3ea1474a858c9ca6fa59c41fa7'
+    auth_manager = SpotifyClientCredentials(
+        client_id=cid, client_secret=secret)
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)
+    print(results)
+    return render_template("profile.html", tracks=results['tracks']['items'])
+
+
+@app.route('/tracks')
+def tracks():
+    cid = '0a4c36fea33d439cb53856de91e923e5'
+    secret = '2710be3ea1474a858c9ca6fa59c41fa7'
+    auth_manager = SpotifyClientCredentials(
+        client_id=cid, client_secret=secret)
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)
+    print(results)
+    return render_template("profile.html", tracks=results['tracks']['items'])
+
+# --spotify syntax end
+
+
+@app.route('/registration')
 def registration():
     return render_template("registration.html")
 
 
-@ app.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     if not User.validate_register(request.form):
         return redirect('/registration')
@@ -111,17 +113,17 @@ def register():
     return redirect('/dashboard')
 
 
-@ app.route('/')
+@app.route('/')
 def index():
     return render_template("index.html")
 
 
-@ app.route('/login')
+@app.route('/login')
 def login():
     return render_template("login.html")
 
 
-@ app.route('/log_in', methods=['POST'])
+@app.route('/log_in', methods=['POST'])
 def login_():
     user = User.get_from_email(request.form)
     if not user:
@@ -134,7 +136,7 @@ def login_():
     return redirect('/dashboard')
 
 
-@ app.route('/dashboard')
+@app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
         return redirect('/logout')
@@ -149,7 +151,7 @@ def dashboard():
     return render_template('dashboard.html', loggin_user=User.get_from_id(data), users=users, friends=friends)
 
 
-@ app.route('/profile')
+@app.route('/profile')
 def profile():
     if 'user_id' not in session:
         return redirect('/logout')
@@ -166,7 +168,7 @@ def profile():
     return render_template('view_profile.html', user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
 
 
-@ app.route('/logout')
+@app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')

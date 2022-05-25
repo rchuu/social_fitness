@@ -58,8 +58,7 @@
             </div>
         </nav>
         <div>
-            <form action="/update_workout" method="POST"
-                class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
+            <form action="/update_workout" method="POST" class="col-11 p-4 my-4 bg-transparent mx-auto form-control-sm">
                 <h2 class="text-light">Edit Workout</h2>
                 <input type="hidden" name="id" value="{{workout.id}}">
                 <div class="d-flex justify-content-around col-9 mx-auto">
@@ -82,7 +81,8 @@
 
                         <div class="form-group">
                             <label for="date">Date of Workout:</label>
-                            <input type="date" name="date" value="{{workout.date.strftime('%Y-%m-%d')}}" class="form-control">
+                            <input type="date" name="date" value="{{workout.date.strftime('%Y-%m-%d')}}"
+                                class="form-control">
                         </div>
                     </div>
                 </div>

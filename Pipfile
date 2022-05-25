@@ -9,6 +9,8 @@ pymysql = "*"
 flask-bcrypt = "*"
 werkzeug = "==2.0.3"
 python-dotenv = "*"
+requests = "*"
+spotipy = "*"
 
 [dev-packages]
 

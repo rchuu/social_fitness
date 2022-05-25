@@ -4,6 +4,7 @@ import re
 from flask_app.models.workout import Workout
 from flask_app.models.friend import Friend
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+# spotify
 
 
 class User:
@@ -18,12 +19,6 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-
-    @classmethod
-    def create_img(cls, data):
-        query = 'UPDATE user SET image_path = %(image_path)s WHERE id = %(id)s;'
-        results = connectToMySQL(cls.db).query_db(query, data)
-        return results
 
     @classmethod
     def create_img(cls, data):
