@@ -17,10 +17,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 
     <body id="background-img4">
-        <script src="scripts.js"></script>
         <nav class="navbar bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" id="logo-img" href="/dashboard"></a>
@@ -55,28 +57,27 @@
             </div>
         </nav>
         <main>
-            <div class="col-6 mx-auto py-5 d-flex justify-content-center flex-column">
-                >
-                <div class="card">
-                    <h2 class="my-5 mx-5 text-center">View Workout</h2>
+            <h1 class="text-light py-4 mx-5">View Workout</h1>
+            <div class="col-6 mx-auto d-flex justify-content-center flex-column">
 
-                    <div class="card-title bg-dark text-light">Workout Type:</div>
+                <div class="card">
+                    <div class="card-title bg-dark text-light text-center">Workout Type</div>
                     <div class="card-body">{{workout.type}}</div>
                     <!-- </div> -->
                     <!-- <div class="card"> -->
-                    <div class="card-title bg-dark text-light">Description:</div>
+                    <div class="card-title bg-dark text-light text-center">Description</div>
                     <div class="card-body">{{workout.description}}</div>
                     <!-- </div>
                 <div class="card"> -->
-                    <div class="card-title bg-dark text-light">Length(minutes):</div>
+                    <div class="card-title bg-dark text-light text-center">Length(minutes)</div>
                     <div class="card-body">{{workout.length}}</div>
                     <!-- </div>
                 <div class="card"> -->
-                    <div class="card-title bg-dark text-light">Date of Workout:</div>
+                    <div class="card-title bg-dark text-light text-center">Date of Workout</div>
                     <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
                 </div>
-            </div>
         </main>
+        <script src="scripts.js"></script>
     </body>
 
 </html>

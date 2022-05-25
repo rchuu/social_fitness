@@ -33,7 +33,7 @@
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello,
-                            {{user.first_name}} {{user.last_name}}
+                            {{user.first_name}}{{user.last_name}}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
@@ -52,7 +52,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </nav>
 
         <main>
@@ -62,7 +61,6 @@
                     <div class="col">
                         <div class="card-body">
                             <div class="card-title">
-                                <!-- <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m"> -->
                                 <img src="{{user.image_path}}" alt="" class="avatar-m">
                                 <form action="/post/image" method=post enctype=multipart/form-data>
                                     <input type=file name=file>
@@ -70,151 +68,147 @@
                                 </form>
                             </div>
                             <div class="card-body">
-                                <div class="card-title">
-                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-m">
-                                </div>
-                                <div class="card-body">
-                                    <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
-                                    <h3>Social Fitness Life</h3>
-                                    <p>Athlete | Weight Loss | Strength</p>
-                                    <!-- <p>
+                                <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
+                                <h3>Social Fitness Life</h3>
+                                <p>Athlete | Weight Loss | Strength</p>
+                                <!-- <p>
                                 <a href="/edit_workout/">
                                     <img src="../img/gear.png" alt="gear" class="icon-s">
                                     Edit Workout
                                 </a>
                             </p> -->
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="card">
-                                <div class="header">
-                                    All Workouts
-                                </div>
-                                <table class="table table-hover table-light table-responsive form-control-md">
-                                    <thead>
-                                        <tr>
-                                            <th>Workout</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        <div class="card">
+                            <div class="header">
+                                All Workouts
+                            </div>
+                            <table class="table table-hover table-light table-responsive form-control-md">
+                                <thead>
+                                    <tr>
+                                        <th>Workout</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                        {% for workout in user_workouts %}
-                                        <tr>
-                                            <!-- {% for user in users %}
+                                    {% for workout in user_workouts %}
+                                    <tr>
+                                        <!-- {% for user in users %}
                                     {% if user.id == workout.user_id %}
                                     <td>{{user.first_name}}</td>
                                     {% endif %}
                                     {% endfor %} -->
-                                            <td>{{workout.type}}</td>
-                                            <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
-                                            <td>
-                                                <a href="/view/workout/{{workout.id}}">View</a>
-                                                <a href="/edit_workout/{{workout.id}}">Edit</a>
-                                                <a href="/delete_workout/{{workout.id}}">Remove</a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-
+                                        <td>{{workout.type}}</td>
+                                        <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
+                                        <td>
+                                            <a href="/view/workout/{{workout.id}}">View</a>
+                                            <a href="/edit_workout/{{workout.id}}">Edit</a>
+                                            <a href="/delete_workout/{{workout.id}}">Remove</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
 
-                        <!-- right column -->
-                        <div class="col">
-                            <div class="card">
-                                <div class="header">
-                                    <span class="friends">{{pending|length}}</span>
-                                    Friend Requests
-                                </div>
-                                {% if pending %}
-                                {% for friend in pending %}
-                                <div class="user-line">
-                                    <span class="start">
+                    </div>
 
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>{{friend.first_name}} {{friend.last_name}}</span>
-                                    </span>
-                                    <span class="end">
-                                        <div>
-                                            <a href="/addfriend/accept/{{friend.id}}">accept</a>
-                                            <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
-                                        </div>
-                                        <a href="/addfriend/decline/{{friend.id}}">decline</a>
-                                        <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
-                                    </span>
-                                </div>
-                                {% endfor %}
-                                {% else %}
-                                <div class="user-line">
-                                    <span class="start">
-
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>No friend requests!! go make some </span>
-                                    </span>
-
-                                </div>
-                                {% endif %}
+                    <!-- right column -->
+                    <div class="col">
+                        <div class="card">
+                            <div class="header">
+                                <span class="friends">{{pending|length}}</span>
+                                Friend Requests
                             </div>
-                            <div class="card">
-                                <div class="header">
-                                    <span class="friends">{{request_friends|length}}</span>
-                                    Requests Sent
-                                </div>
-                                {% if request_friends %}
-                                {% for friend in request_friends %}
-                                <div class="user-line">
-                                    <span class="start">
+                            {% if pending %}
+                            {% for friend in pending %}
+                            <div class="user-line">
+                                <span class="start">
 
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>{{friend.first_name}} {{friend.last_name}}</span>
-                                    </span>
-
-                                </div>
-                                {% endfor %}
-                                {% else %}
-                                <div class="user-line">
-                                    <span class="start">
-
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>No friend requests!! go make some </span>
-                                    </span>
-
-                                </div>
-                                {% endif %}
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>{{friend.first_name}} {{friend.last_name}}</span>
+                                </span>
+                                <span class="end">
+                                    <div>
+                                        <a href="/addfriend/accept/{{friend.id}}">accept</a>
+                                        <img src="../static/img/accept-circle.png" alt="accept" class="avatar-s">
+                                    </div>
+                                    <a href="/addfriend/decline/{{friend.id}}">decline</a>
+                                    <img src="../static/img/close-circle.png" alt="decline" class="avatar-s">
+                                </span>
                             </div>
-                            <div class="card">
-                                <div class="header">
-                                    <span class="friends">{{approved|length}}</span>
-                                    Friends
-                                </div>
-                                {% if approved %}
-                                {% for friend in approved %}
-                                <div class="user-line">
-                                    <span class="start">
+                            {% endfor %}
+                            {% else %}
+                            <div class="user-line">
+                                <span class="start">
 
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>{{friend.first_name}} {{friend.last_name}}</span>
-                                    </span>
-                                </div>
-                                {% endfor %}
-                                {% else %}
-                                <div class="user-line">
-                                    <span class="start">
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>No friend requests!! go make some </span>
+                                </span>
 
-                                        <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
-                                        <span>No friends :( why so lonely </span>
-                                        <span>you gonna die alone</span>
-                                    </span>
-
-                                </div>
-                                {% endif %}
                             </div>
+                            {% endif %}
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <span class="friends">{{request_friends|length}}</span>
+                                Requests Sent
+                            </div>
+                            {% if request_friends %}
+                            {% for friend in request_friends %}
+                            <div class="user-line">
+                                <span class="start">
+
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>{{friend.first_name}} {{friend.last_name}}</span>
+                                </span>
+
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="user-line">
+                                <span class="start">
+
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>No friend requests!! go make some </span>
+                                </span>
+
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <span class="friends">{{approved|length}}</span>
+                                Friends
+                            </div>
+                            {% if approved %}
+                            {% for friend in approved %}
+                            <div class="user-line">
+                                <span class="start">
+
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>{{friend.first_name}} {{friend.last_name}}</span>
+                                </span>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="user-line">
+                                <span class="start">
+
+                                    <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
+                                    <span>No friends :( why so lonely </span>
+                                    <span>you gonna die alone</span>
+                                </span>
+
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+            </div>
         </main>
 
     </body>
