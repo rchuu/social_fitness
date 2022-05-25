@@ -157,10 +157,14 @@ class User:
             is_valid = False
         if len(user['first_name']) < 2:
             flash("First name needs at least 2 characters", "register")
+            is_valid = False
         if len(user['last_name']) < 2:
             flash("Last name needs at least 2 characters", "register")
+            is_valid = False
         if len(user['password']) < 6:
             flash("Password needs at least 6 characters", "register")
+            is_valid = False
         if user['password'] != user['confirm']:
             flash("Does not match!", "register")
+            is_valid = False
         return is_valid
