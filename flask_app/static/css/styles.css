@@ -202,5 +202,7 @@ body {
 }
 
 #map{
-    height: 180px;
+    height: 200px;
+    width: 50%;
+    margin: 0 auto;
 }
