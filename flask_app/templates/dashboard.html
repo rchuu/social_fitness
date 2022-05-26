@@ -61,7 +61,7 @@
         <table class="table table-hover table-light table-responsive form-control-md table-striped">
             <thead>
                 <tr>
-                    <th>Friend</th>
+                    <th>Users</th>
                     <th>Workout</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -69,6 +69,9 @@
             </thead>
             <tbody>
                 {% for user in users %}
+                {% if user.workout.type == "" %}
+                <tr></tr>
+                {% else %}
                 <tr>
                     
                     
@@ -84,15 +87,15 @@
                                 <td>
 
 
-                                    {% if user.workout.id == "" %}
+                                    
                                         <a href="/view/workout/{{user.workout.id}}">view workout</a>
-                                    {% endif %}
-                                    {% if user.id != session['user_id'] %}
+                                        {% if user.id != session['user_id'] %}
                                         {% if user.id not in loggin_user.friends|map(attribute="id") %}
                                         {% if user.id not in loggin_user.friends_requests|map(attribute = "id") %}
                                         <!-- # or user.id friend.requested -->
                                         <!-- add if statement to remove if they are a friend here  -->
                                         <a href="/addfriend/{{user.id}}">Add Friend</a>
+                                        {% endif %}
                                         {% endif %}
                                         {% endif %}
                                         
