@@ -207,16 +207,16 @@
                             {% endif %}
                         </div>
                         <div>
-                            <form action="/search/new" class="text-center">
-                                <label for="/search/new">Search My Playlist:</label>
-                                <input type="search" id="/search/new" name="search">
+                            <form action="/search" class="text-center" method="POST">
+                                <label for="search_term">Search My Playlist:</label>
+                                <input type="search" name="search_term">
 
                                 <button>Search</button>
 
                                 {% for track in tracks %}
                                 <p>{{track.name}}</p>
-                                <iframe src="{{track.href}}" width="300" height="400" frameborder="0"
-                                    allowtransparency="true" allow="encrypted-media"></iframe>
+                                <!-- <iframe src="{{track.href}}" width="300" height="400" frameborder="0"
+                                    allowtransparency="true" allow="encrypted-media"></iframe> -->
                                 {% endfor %}
                             </form>
                         </div>

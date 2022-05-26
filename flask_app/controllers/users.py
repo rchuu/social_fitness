@@ -13,7 +13,7 @@ from flask_app.models.friend import Friend
 import requests
 import spotipy
 from spotipy import SpotifyClientCredentials
-
+from spotipy.oauth2 import SpotifyOAuth
 
 bcrypt = Bcrypt(app)
 
@@ -65,26 +65,55 @@ def search_form():
 @app.route("/search", methods=['POST'])
 def search():
     search_term = request.form['search_term']
-    cid = '0a4c36fea33d439cb53856de91e923e5'
-    secret = '2710be3ea1474a858c9ca6fa59c41fa7'
-    auth_manager = SpotifyClientCredentials(
-        client_id=cid, client_secret=secret)
-    sp = spotipy.Spotify(auth_manager=auth_manager)
-    results = sp.search(search_term, type="track", limit=50)
+    # cid = '0a4c36fea33d439cb53856de91e923e5'
+    # secret = 'BQBgFH1Bez6pbdq-drgZmCgwJBtg9yMJLUbqnj2Mt5kc9D51TcyZSOS6UmnyNmVrEmJPyy_R5M5gw8I-n4P_GGFUGRpfadn-wl61fovUlXFQ8fSB7cQrVUvEJncexTnfDynwQvbj5QcpDvElfaOndDYWaDwHzTyYvvBPJKZgPUMQt79SLJQ'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="0a4c36fea33d439cb53856de91e923e5",
+    client_secret="2710be3ea1474a858c9ca6fa59c41fa7",
+    redirect_uri="http://localhost:5001",
+    scope="ugc-image-upload"))
+    # auth_manager = SpotifyClientCredentials(
+        # client_id=cid, client_secret=secret)
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)   
+    data = {
+        'id': session['user_id']
+    }
+    user_workouts = Workout.get_all_workouts_from_user(data)
+    user = User.get_from_id(data)
+    friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    request_friends = Friend.get_request_friends(data)
+    num = Friend.num_friends(data)
     print(results)
-    return render_template("profile.html", tracks=results['tracks']['items'])
+    return render_template("view_profile.html", tracks=results['tracks']['items'],user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
 
 
 @app.route('/tracks')
 def tracks():
-    cid = '0a4c36fea33d439cb53856de91e923e5'
-    secret = '2710be3ea1474a858c9ca6fa59c41fa7'
-    auth_manager = SpotifyClientCredentials(
-        client_id=cid, client_secret=secret)
-    sp = spotipy.Spotify(auth_manager=auth_manager)
-    results = sp.search(search_term, type="track", limit=50)
+    search_term = request.form['search_term']
+    # cid = '0a4c36fea33d439cb53856de91e923e5'
+    # secret = 'BQBgFH1Bez6pbdq-drgZmCgwJBtg9yMJLUbqnj2Mt5kc9D51TcyZSOS6UmnyNmVrEmJPyy_R5M5gw8I-n4P_GGFUGRpfadn-wl61fovUlXFQ8fSB7cQrVUvEJncexTnfDynwQvbj5QcpDvElfaOndDYWaDwHzTyYvvBPJKZgPUMQt79SLJQ'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="0a4c36fea33d439cb53856de91e923e5",
+    client_secret="2710be3ea1474a858c9ca6fa59c41fa7",
+    redirect_uri="http://localhost:5001",
+    scope="ugc-image-upload"))
+    # auth_manager = SpotifyClientCredentials(
+        # client_id=cid, client_secret=secret)
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)   
+    data = {
+        'id': session['user_id']
+    }
+    user_workouts = Workout.get_all_workouts_from_user(data)
+    user = User.get_from_id(data)
+    friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    request_friends = Friend.get_request_friends(data)
+    num = Friend.num_friends(data)
     print(results)
-    return render_template("profile.html", tracks=results['tracks']['items'])
+    return render_template("view_profile.html", tracks=results['tracks']['items'],user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
 
 # --spotify syntax end
 
