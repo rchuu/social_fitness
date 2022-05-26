@@ -56,61 +56,7 @@
                 </div>
             </div>
         </nav>
-        <div
-            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
-            <table class="table table-hover table-light table-responsive form-control-md table-striped">
-                <thead>
-                    <tr>
-                        <th>Friend</th>
-                        <th>Workout</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
 
-
-                        <td>{{user.first_name}}
-                        </td>
-                        <td>{{user.workout.type}}</td>
-                        {% if user.workout.date %}
-                        <td>{{user.workout.date.strftime('%B %d, %Y')}}</td>
-                        {% else %}
-                        <td></td>
-                        {% endif %}
-
-                        <td>
-
-
-                            {% if user.workout.id == "" %}
-                            <a href="/view/workout/{{user.workout.id}}">View Workout</a>
-                            {% endif %}
-                            {% if user.id != session['user_id'] %}
-                            {% if user.id not in loggin_user.friends|map(attribute="id") %}
-                            {% if user.id not in loggin_user.friends_requests|map(attribute = "id") %}
-                            <!-- # or user.id friend.requested -->
-                            <!-- add if statement to remove if they are a friend here  -->
-                            <a href="/addfriend/{{user.id}}">Add Friend</a>
-                            {% endif %}
-                            {% endif %}
-
-                            {% endif %}
-
-
-                            {% if user.workout.user_id == session.user_id %}
-                            <a href="/edit_workout/{{user.workout.id}}">Edit</a>
-                            <a href="/delete_workout/{{user.workout.id}}">Remove</a>
-                            {% endif %}
-
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </nav>
     <div
         class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
         <table class="table table-hover table-light table-responsive form-control-md table-striped">
@@ -123,10 +69,13 @@
                 </tr>
             </thead>
             <tbody>
+                {% if workouts[0] == "" or users.id != "" %}
                 {% for user in users %}
-                {% if user.workout.type == "" %}
                 <tr></tr>
+                {% endfor %}
                 {% else %}
+                {% for user in users %}
+
                 <tr>
                     
                     
@@ -154,7 +103,6 @@
                                         {% endif %}
                                         {% endif %}
                                         
-                                    {% endif %}
                                     
 
                                     {% if user.workout.user_id == session.user_id %}
@@ -165,6 +113,8 @@
                     </td>
                 </tr>
                 {% endfor %}
+                {% endif %}
+
             </tbody>
         </table>
     </div>

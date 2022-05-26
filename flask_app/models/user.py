@@ -43,20 +43,14 @@ class User:
     def get_all(cls):
         query = 'SELECT * FROM user join workout on user.id = workout.user_id order by workout.date DESC'
         results = connectToMySQL(cls.db).query_db(query)
-        print("-----------------------------inside model-----------------------------------------------------------------------------")
-        print(results)
         users = []
         for row in results:
             user = cls(row)
             user.friends = cls.get_one_user_friend({"id": row['user_id']})
             user.workout = Workout.get_workout_id({"id": row['workout.id']})
             users.append(user)
-            print("-----------------------------inside model-----------------------------------------------------------------------------")
-            print(user)
-            print("-------------------------------------------------------------------------------------------------------------------------")
-
+            
         if len(results) < 1:
-            print("-----------------------------inside model-----------------------------------------------------------------------------")
             return False
         return users
 
