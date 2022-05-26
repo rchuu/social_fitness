@@ -59,24 +59,26 @@
                 <div class="row">
                     <!-- left column -->
                     <div class="col">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <img src="{{user.image_path}}" alt="" class="avatar-m">
-                                <form action="/post/image" method=post enctype=multipart/form-data>
-                                    <input type=file name=file>
-                                    <input type=submit value=Upload>
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
-                                <h3>Social Fitness Life</h3>
-                                <p>Athlete | Weight Loss | Strength</p>
-                                <!-- <p>
+                        <div>
+                            <div>
+                                <div class="card-title">
+                                    <img src="{{user.image_path}}" alt="" class="avatar-m">
+                                    <form action="/post/image" method=post enctype=multipart/form-data>
+                                        <input type=file name=file>
+                                        <input type=submit value=Upload class="btn btn-dark">
+                                    </form>
+                                </div>
+                                <div class="card-body">
+                                    <h1>Profile {{user.first_name}} {{user.last_name}}</h1>
+                                    <h3>Social Fitness Life</h3>
+                                    <p>Athlete | Weight Loss | Strength</p>
+                                    <!-- <p>
                                 <a href="/edit_workout/">
                                     <img src="../img/gear.png" alt="gear" class="icon-s">
                                     Edit Workout
                                 </a>
                             </p> -->
+                                </div>
                             </div>
                         </div>
 
@@ -96,11 +98,6 @@
 
                                     {% for workout in user_workouts %}
                                     <tr>
-                                        <!-- {% for user in users %}
-                                    {% if user.id == workout.user_id %}
-                                    <td>{{user.first_name}}</td>
-                                    {% endif %}
-                                    {% endfor %} -->
                                         <td>{{workout.type}}</td>
                                         <td>{{workout.date.strftime('%B, %d, %Y')}}</td>
                                         <td>
@@ -209,11 +206,14 @@
                             {% endif %}
                         </div>
                         <div>
+                            <div class="d-flex align-items-center justify-content-around">
+                                <h1>Spotify<img src="../static/img/spotify-icon-green-logo-8.png" class="avatar-s"></h1>
+                            </div>
                             <form action="/search" class="text-center" method="POST">
                                 <label for="search_term">Search My Playlist:</label>
                                 <input type="search" name="search_term">
 
-                                <button>Search</button>
+                                <button class="btn btn-dark">Search</button>
 
                                 {% for track in tracks %}
                                 <p>{{track.name}}</p>
