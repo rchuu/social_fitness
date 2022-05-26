@@ -41,7 +41,7 @@ class User:
 
     @classmethod
     def get_all(cls):
-        query = 'SELECT * FROM user left join workout on user.id = workout.user_id order by workout.date DESC'
+        query = 'SELECT * FROM user join workout on user.id = workout.user_id order by workout.date DESC'
         results = connectToMySQL(cls.db).query_db(query)
         users = []
         for row in results:

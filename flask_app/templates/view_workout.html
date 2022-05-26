@@ -63,26 +63,33 @@
         </nav>
         <main>
             <h1 class="text-light py-4 mx-5">View Workout</h1>
-            <div class="col-6 mx-auto d-flex justify-content-center flex-column">
 
-                <div class="card">
-                    <div class="card-title bg-dark text-light text-center">Workout Type</div>
-                    <div class="card-body">{{workout.type}}</div>
-                    <!-- </div> -->
-                    <!-- <div class="card"> -->
-                    <div class="card-title bg-dark text-light text-center">Description</div>
-                    <div class="card-body">{{workout.description}}</div>
-                    <!-- </div>
-                <div class="card"> -->
-                    <div class="card-title bg-dark text-light text-center">Length(minutes)</div>
-                    <div class="card-body">{{workout.length}}</div>
-                    <!-- </div>
-                <div class="card"> -->
-                    <div class="card-title bg-dark text-light text-center">Date of Workout</div>
-                    <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
+            <div class="wrapper">
+                <div class="box-area">
+                    <div class="box side-one">flipping</div>
+                    <div class="box side-two">flipped</div>
                 </div>
             </div>
-            <div id="map"></div>
+            <!-- <div class="d-flex align-items-center col-2"> -->
+            <!-- <div>
+                    <div class="card-title bg-dark text-light text-center">Workout Type</div>
+                    <div class="card-body">{{workout.type}}</div>
+                </div>
+                <div>
+                    <div class="card-title bg-dark text-light text-center">Description</div>
+                    <div class="card-body">{{workout.description}}</div>
+                </div>
+                <div>
+                    <div class="card-title bg-dark text-light text-center">Length(minutes)</div>
+                    <div class="card-body">{{workout.length}}</div>
+                </div>
+                <div>
+                    <div class="card-title bg-dark text-light text-center">Date of Workout</div>
+                    <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
+                </div> -->
+
+            <div id="map">
+            </div>
             <script type="text/javascript" src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
         </main>
         <script src="scripts.js"></script>
