@@ -66,3 +66,14 @@ def decline_friend(id):
     print(data)
     Friend.decline_friend(data)
     return redirect('/profile')
+
+@app.route('/deletefriend/<int:id>')
+def delete_friend(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data={
+        'user_id': session['user_id'],
+        'friend_id':id
+    }
+    Friend.delete_friend(data)
+    return redirect('/profile')

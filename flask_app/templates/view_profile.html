@@ -189,6 +189,8 @@
                                     <img src="../static/img/usericon.jpeg" alt="usericon" class="avatar-s">
                                     <span>{{friend.first_name}} {{friend.last_name}}</span>
                                 </span>
+                                <a href="/addfriend/decline/{{friend.id}}"><img src="../static/img/close-circle.png" alt="decline" class="avatar-s"></a>
+                                
                             </div>
                             {% endfor %}
                             {% else %}

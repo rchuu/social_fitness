@@ -104,14 +104,14 @@ class Friend:
         return results
 
     @classmethod
-    def friend_list_requests(self,data):
+    def friend_list_requests(cls,data):
         query = 'insert into friendship (status, user_id, friend_id) values (%(status)s, %(user_id)s, %(friend_id)s),'
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
     @classmethod
     def delete_friend(cls, data):
-        query = 'delete from friendship where id=%(id)s'
+        query = 'delete from friendship where user_id = %(user_id)s and friend_id=%(friend_id)s '
         results = connectToMySQL(cls.db).query_db(query, data)
         return results
 
