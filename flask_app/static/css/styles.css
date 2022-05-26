@@ -208,14 +208,16 @@ body {
 }
 
 #map {
-    height: 200px;
-    width: 50%;
+    height: 300px;
+    width: 25%;
     margin: 0 auto;
 }
 
-.desc_card {
+.card {
+    width: 250px;
+    opacity: 95%;
+}
+
+.card-body {
     height: 100px;
-    width: 100px;
-    padding: 10px;
-    margin: 10px;
 }
