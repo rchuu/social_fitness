@@ -63,49 +63,34 @@
         </nav>
         <main>
             <h1 class="text-light py-5 mx-5">View Workout</h1>
-            <div class="d-flex justify-content-around py-4">
-                <div class="card">
-                    <h5 class="card-header">Workout Type</h5>
-                    <div class="card-body">
+            <div class="view_workouts">
+                <div class="workout_card">
+                    <h2 class="card-header">Workout Type</h2>
+                    <div class="workout-card-body ">
                         <p class="card-text">{{workout.type}}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <h5 class="card-header">Description</h5>
-                    <div class="card-body">
+                <div class="workout_card">
+                    <h2 class="card-header">Description</h2>
+                    <div class="workout-card-body ">
                         <p class="card-text">{{workout.description}}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <h5 class="card-header">Length(minutes)</h5>
-                    <div class="card-body">
+                <div class="workout_card">
+                    <h2 class="card-header">Length(minutes)</h2>
+                    <div class="workout-card-body ">
                         <p class="card-text">{{workout.length}}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <h5 class="card-header">Date of Workout</h5>
-                    <div class="card-body">
+                <div class="workout_card">
+                    <h2 class="card-header">Date of Workout</h2>
+                    <div class="workout-card-body ">
                         <p class="card-text">{{workout.date.strftime('%B %d, %Y')}}</p>
                     </div>
                 </div>
             </div>
-            <!-- <div>
-                    <div class="card-title bg-dark text-light text-center">Workout Type</div>
-                    <div class="card-body">{{workout.type}}</div>
-                </div>
-                <div>
-                    <div class="card-title bg-dark text-light text-center">Description</div>
-                    <div class="card-body">{{workout.description}}</div>
-                </div>
-                <div>
-                    <div class="card-title bg-dark text-light text-center">Length(minutes)</div>
-                    <div class="card-body">{{workout.length}}</div>
-                </div>
-                <div>
-                    <div class="card-title bg-dark text-light text-center">Date of Workout</div>
-                    <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
-                </div> -->
 
+            <h1 class="text-light text-center">Location</h1>
             <div id="map">
             </div>
             <script type="text/javascript" src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
