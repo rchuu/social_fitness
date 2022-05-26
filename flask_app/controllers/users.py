@@ -175,7 +175,13 @@ def dashboard():
     # everything = User.userfriendworkouts()
     # workouts = Workout.get_all_workouts()
     users = User.get_all()
+    print("--------------------------------users----------------------------------------------------------------------")
+    print(users)
     friends = Friend.get_all_friends()
+    print("------------------------------friends-------------------------------------------------------------------------")
+    print(friends)
+
+
     return render_template('dashboard.html', loggin_user=User.get_from_id(data), users=users, friends=friends)
 
 
