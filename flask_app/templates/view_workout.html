@@ -19,16 +19,15 @@
             crossorigin="anonymous"></script>
         <!-- leaflet map css -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-        crossorigin=""/>
+            integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+            crossorigin="" />
         <!-- leaflet map js -->
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
     </head>
 
     <body id="background-img4">
-        <script src="scripts.js"></script>
         <nav class="navbar bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" id="logo-img" href="/dashboard"></a>
@@ -52,7 +51,7 @@
                                 <a class="nav-link" href="/profile">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Add Workout</a>
+                                <a class="nav-link" href="/add">Add Workout</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
@@ -63,29 +62,30 @@
             </div>
         </nav>
         <main>
-            <div class="col-4 mx-auto py-5 d-flex justify-content-center flex-column">
-                >
-                <h2 class="text-light my-5 mx-5">View Workout</h2>
+            <h1 class="text-light py-4 mx-5">View Workout</h1>
+            <div class="col-6 mx-auto d-flex justify-content-center flex-column">
+
                 <div class="card">
-                    <div class="card-header bg-dark text-light">Workout Type:</div>
+                    <div class="card-title bg-dark text-light text-center">Workout Type</div>
                     <div class="card-body">{{workout.type}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Description:</div>
+                    <!-- </div> -->
+                    <!-- <div class="card"> -->
+                    <div class="card-title bg-dark text-light text-center">Description</div>
                     <div class="card-body">{{workout.description}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Length(minutes):</div>
+                    <!-- </div>
+                <div class="card"> -->
+                    <div class="card-title bg-dark text-light text-center">Length(minutes)</div>
                     <div class="card-body">{{workout.length}}</div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Date of Workout:</div>
+                    <!-- </div>
+                <div class="card"> -->
+                    <div class="card-title bg-dark text-light text-center">Date of Workout</div>
                     <div class="card-body">{{workout.date.strftime('%B %d, %Y')}}</div>
                 </div>
             </div>
             <div id="map"></div>
             <script type="text/javascript" src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
         </main>
+        <script src="scripts.js"></script>
     </body>
 
 </html>

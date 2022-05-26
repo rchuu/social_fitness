@@ -1,4 +1,5 @@
-from telnetlib import STATUS
+from werkzeug.utils import secure_filename
+import os
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models.user import User
@@ -6,24 +7,32 @@ from flask_app.models.workout import Workout
 from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
 from flask_app.models.friend import Friend
+
+# --spotify stuff
+
+import requests
+import spotipy
+from spotipy import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+
 bcrypt = Bcrypt(app)
 
 # --uploading image syntax start
-import os
-from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = '../social_fitness/flask_app/static/img'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @app.route('/post/image', methods=['GET', 'POST'])
-def upload_file():    
+def upload_file():
     if request.method == 'POST':
-    # check if the post request has the file part
+        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect('/')
@@ -41,7 +50,72 @@ def upload_file():
                 'image_path': "../static/img/" + filename,
             }
             User.create_img(data)
-        return redirect('/profile')# --uploading image syntax end
+        return redirect('/profile')
+
+# --uploading image syntax end
+
+# --spotify syntax start
+
+
+@app.route("/search/new")
+def search_form():
+    return redirect("/profile")
+
+
+@app.route("/search", methods=['POST'])
+def search():
+    search_term = request.form['search_term']
+    # cid = '0a4c36fea33d439cb53856de91e923e5'
+    # secret = 'BQBgFH1Bez6pbdq-drgZmCgwJBtg9yMJLUbqnj2Mt5kc9D51TcyZSOS6UmnyNmVrEmJPyy_R5M5gw8I-n4P_GGFUGRpfadn-wl61fovUlXFQ8fSB7cQrVUvEJncexTnfDynwQvbj5QcpDvElfaOndDYWaDwHzTyYvvBPJKZgPUMQt79SLJQ'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="0a4c36fea33d439cb53856de91e923e5",
+    client_secret="2710be3ea1474a858c9ca6fa59c41fa7",
+    redirect_uri="http://localhost:5001",
+    scope="ugc-image-upload"))
+    # auth_manager = SpotifyClientCredentials(
+        # client_id=cid, client_secret=secret)
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)   
+    data = {
+        'id': session['user_id']
+    }
+    user_workouts = Workout.get_all_workouts_from_user(data)
+    user = User.get_from_id(data)
+    friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    request_friends = Friend.get_request_friends(data)
+    num = Friend.num_friends(data)
+    print(results)
+    return render_template("view_profile.html", tracks=results['tracks']['items'],user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
+
+
+@app.route('/tracks')
+def tracks():
+    search_term = request.form['search_term']
+    # cid = '0a4c36fea33d439cb53856de91e923e5'
+    # secret = 'BQBgFH1Bez6pbdq-drgZmCgwJBtg9yMJLUbqnj2Mt5kc9D51TcyZSOS6UmnyNmVrEmJPyy_R5M5gw8I-n4P_GGFUGRpfadn-wl61fovUlXFQ8fSB7cQrVUvEJncexTnfDynwQvbj5QcpDvElfaOndDYWaDwHzTyYvvBPJKZgPUMQt79SLJQ'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="0a4c36fea33d439cb53856de91e923e5",
+    client_secret="2710be3ea1474a858c9ca6fa59c41fa7",
+    redirect_uri="http://localhost:5001",
+    scope="ugc-image-upload"))
+    # auth_manager = SpotifyClientCredentials(
+        # client_id=cid, client_secret=secret)
+    # sp = spotipy.Spotify(auth_manager=auth_manager)
+    results = sp.search(search_term, type="track", limit=50)   
+    data = {
+        'id': session['user_id']
+    }
+    user_workouts = Workout.get_all_workouts_from_user(data)
+    user = User.get_from_id(data)
+    friend = Friend.get_one_user_friends(data)
+    pending_friends = Friend.get_pending_friends(data)
+    approved_friends = Friend.get_approved_friends(data)
+    request_friends = Friend.get_request_friends(data)
+    num = Friend.num_friends(data)
+    print(results)
+    return render_template("view_profile.html", tracks=results['tracks']['items'],user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
+
+# --spotify syntax end
 
 
 @app.route('/registration')
@@ -62,8 +136,8 @@ def register():
     }
     id = User.save(data)
     if not id:
-      flash("Email already taken, please login")
-      return redirect('/')
+        flash("Email already taken, please login")
+        return redirect('/')
     session['user_id'] = id
     return redirect('/dashboard')
 
@@ -103,7 +177,7 @@ def dashboard():
     # workouts = Workout.get_all_workouts()
     users = User.get_all()
     friends = Friend.get_all_friends()
-    return render_template('dashboard.html',loggin_user=User.get_from_id(data), users = users, friends = friends)
+    return render_template('dashboard.html', loggin_user=User.get_from_id(data), users=users, friends=friends)
 
 
 @app.route('/profile')
@@ -114,19 +188,16 @@ def profile():
         'id': session['user_id']
     }
     user_workouts = Workout.get_all_workouts_from_user(data)
-    user=User.get_from_id(data)
+    user = User.get_from_id(data)
     friend = Friend.get_one_user_friends(data)
     pending_friends = Friend.get_pending_friends(data)
     approved_friends = Friend.get_approved_friends(data)
     request_friends = Friend.get_request_friends(data)
     num = Friend.num_friends(data)
-    return render_template('view_profile.html', user_workouts = user_workouts, user = user, request_friends = request_friends, friend = friend, num = num, pending = pending_friends, approved = approved_friends)
-
+    return render_template('view_profile.html', user_workouts=user_workouts, user=user, request_friends=request_friends, friend=friend, num=num, pending=pending_friends, approved=approved_friends)
 
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
-
-

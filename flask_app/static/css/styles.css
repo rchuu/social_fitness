@@ -68,6 +68,11 @@
     object-fit: scale-down;
 }
 
+#like_button {
+    content: url("../img/thumb.png");
+    height: 2px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -141,12 +146,13 @@ body {
 }
 
 .avatar-m {
-    border-radius: 50%;
+    border-radius: 65%;
     background-color: #fff;
     height: 150px;
-    padding: 5px;
-    margin-top: 15px;
-    margin-left: 15px;
+    /* padding: 10px; */
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .icon-s {
@@ -201,7 +207,7 @@ body {
     margin-right: 10px;
 }
 
-#map{
+#map {
     height: 200px;
     width: 50%;
     margin: 0 auto;
