@@ -212,3 +212,10 @@ body {
     width: 50%;
     margin: 0 auto;
 }
+
+.desc_card {
+    height: 100px;
+    width: 100px;
+    padding: 10px;
+    margin: 10px;
+}
