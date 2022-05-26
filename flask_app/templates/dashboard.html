@@ -69,13 +69,10 @@
                 </tr>
             </thead>
             <tbody>
-                {% if workouts[0] == "" or users.id != "" %}
-                {% for user in users %}
-                <tr></tr>
-                {% endfor %}
-                {% else %}
-                {% for user in users %}
+                
 
+
+                {% for user in users %}
                 <tr>
                     
                     
@@ -113,7 +110,7 @@
                     </td>
                 </tr>
                 {% endfor %}
-                {% endif %}
+
 
             </tbody>
         </table>
