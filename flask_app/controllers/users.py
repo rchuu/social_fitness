@@ -1,12 +1,11 @@
 from werkzeug.utils import secure_filename
 import os
-from flask import render_template, redirect, request, session, flash
+from flask import render_template, redirect, flash, request, session
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.workout import Workout
 from flask_app.models.friend import Friend
 from flask_bcrypt import Bcrypt
-from flask_app.models.friend import Friend
 
 # --spotify stuff
 

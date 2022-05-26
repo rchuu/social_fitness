@@ -85,7 +85,7 @@
 
 
                             {% if user.workout.id == "" %}
-                            <a href="/view/workout/{{user.workout.id}}">view workout</a>
+                            <a href="/view/workout/{{user.workout.id}}">View Workout</a>
                             {% endif %}
                             {% if user.id != session['user_id'] %}
                             {% if user.id not in loggin_user.friends|map(attribute="id") %}
