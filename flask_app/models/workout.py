@@ -23,7 +23,7 @@ class Workout:
 
     @classmethod
     def get_all_workouts(cls):
-        query = "SELECT * FROM user JOIN workout ON user.id = workout.user_id"
+        query = "SELECT * FROM user left JOIN workout ON user.id = workout.user_id"
         results = connectToMySQL(cls.db).query_db(query)
 
         workouts = []
